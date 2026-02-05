@@ -4,7 +4,7 @@
     "lastTouchedAt": "2026-02-02T21:05:17.954Z"
   },
   "env": {
-    "MOONSHOT_API_KEY": "sk-lGkm1LmG63VsO3sPmN8PmQhsaYm8ok3jrysUmbQj2aLmrqUs"
+    "MOONSHOT_API_KEY": "${MOONSHOT_API_KEY}"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T21:05:17.953Z",
@@ -33,7 +33,7 @@
     "providers": {
       "moonshot": {
         "baseUrl": "https://api.moonshot.ai/v1",
-        "apiKey": "sk-lGkm1LmG63VsO3sPmN8PmQhsaYm8ok3jrysUmbQj2aLmrqUs",
+        "apiKey": "${MOONSHOT_API_KEY}",
         "api": "openai-completions",
         "models": [
           {
@@ -148,7 +148,7 @@
     "web": {
       "search": {
         "enabled": true,
-        "apiKey": "BSAaCAyc5MeUHhBoMr0nPIjPbKNrbMv"
+        "apiKey": "${BRAVE_API_KEY}"
       },
       "fetch": {
         "enabled": true
@@ -215,7 +215,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "831b3937ef07e3a29591f3e5225a17211a829511d36ce26f"
+      "token": "${GATEWAY_TOKEN}"
     },
     "tailscale": {
       "mode": "off",

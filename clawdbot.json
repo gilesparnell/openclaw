@@ -77,7 +77,7 @@
     "web": {
       "search": {
         "enabled": true,
-        "apiKey": "BSAaCAyc5MeUHhBoMr0nPIjPbKNrbMv"
+        "apiKey": "${BRAVE_API_KEY}"
       },
       "fetch": {
         "enabled": true
@@ -144,7 +144,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "831b3937ef07e3a29591f3e5225a17211a829511d36ce26f"
+      "token": "${GATEWAY_TOKEN}"
     },
     "tailscale": {
       "mode": "off",
