@@ -1,0 +1,8 @@
+*.log
+.DS_Store
+logs/
+media/
+agents/main/agent/auth-profiles.json
+credentials/
+*.key
+*.pem

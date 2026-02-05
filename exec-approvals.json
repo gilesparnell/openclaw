@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "socket": {
+    "path": "/Users/gilesparnell/.clawdbot/exec-approvals.sock",
+    "token": "t2IWzK9zGGNR_G8SMKvn_dvrJjTrjrP6"
+  },
+  "defaults": {},
+  "agents": {}
+}
