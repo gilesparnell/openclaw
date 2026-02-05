@@ -2,6 +2,11 @@
 # OpenClaw Daily Backup Script
 # Backs up ~/.openclaw and ~/clawd to GitHub
 
+# Load environment variables
+if [ -f "$HOME/.openclaw/.env" ]; then
+    export $(grep -v '^#' "$HOME/.openclaw/.env" | xargs)
+fi
+
 DATE=$(date +"%Y-%m-%d %H:%M:%S")
 DATE_SHORT=$(date +"%Y-%m-%d")
 
