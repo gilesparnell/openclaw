@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "weather": {
+      "version": "1.0.0",
+      "installedAt": 1770303155208
+    },
+    "answeroverflow": {
+      "version": "1.0.2",
+      "installedAt": 1770303242142
+    },
+    "bird": {
+      "version": "1.0.0",
+      "installedAt": 1770303343944
+    }
+  }
+}
