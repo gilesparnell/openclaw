@@ -33,6 +33,11 @@
 - [ ] Criteria 1
 - [ ] Criteria 2
 
+**Error Handling:**
+- Max retries: 3
+- On failure: Log to JOURNAL.md, mark task as [RETRY] or [ESCALATED]
+- Auto-retry: Yes (if retryable error) / No (if needs human)
+
 ---
 
 ### QUEST-002: [TASK NAME]
@@ -75,3 +80,47 @@
 
 **Emergency Stop:**
 If you need to halt all night ops, edit this file and add `[HALT]` to the title.
+
+---
+
+## 🔄 Error Handling Workflow
+
+When a task fails:
+
+```
+1. AGENT tries task → FAILS
+2. AGENT logs error to JOURNAL.md
+3. AGENT decides: RETRY or ESCALATE?
+   
+   RETRY if:
+   - Network timeout
+   - Rate limit (wait and retry)
+   - Transient error
+   → Mark task [RETRY-1], [RETRY-2], [RETRY-3]
+   → Wait 10 min, try again
+   
+   ESCALATE if:
+   - Logic error (wrong approach)
+   - Missing context/info
+   - 3 retries exhausted
+   → Move to "Blocked / Escalated" table
+   → Add [ESCALATION] tag in JOURNAL.md
+   → Warden sends Telegram alert to Gilo
+
+4. WARDEN (next check) reviews:
+   - Any [ESCALATION] entries? → Alert Gilo
+   - Any [RETRY-3]? → Escalate
+   - Otherwise → Continue monitoring
+```
+
+**Error Log Format (for JOURNAL.md):**
+```markdown
+## HH:MM — [Agent]
+**Quest:** QUEST-XXX
+**Action:** [What was attempted]
+**Result:** ❌ Failed (attempt 1/3)
+**Error:** [Specific error message]
+**Type:** Transient / Logic / External
+**Decision:** RETRY / ESCALATE
+**Next:** [What happens next]
+```

@@ -13,8 +13,8 @@
 | Watch | Time | Warden Duty |
 |-------|------|-------------|
 | 🌙 Midnight Watch | 00:00 | Initial check, spawn first quest |
-| 🌑 Deep Night Watch | 02:00 | Progress check, continue or nudge |
-| 🐺 Wolf Watch | 04:00 | Progress check, escalate if blocked |
+| 🌑 Deep Night Watch | 02:00 | Progress check, handle [RETRY-1], [RETRY-2] |
+| 🐺 Wolf Watch | 04:00 | Handle [RETRY-3], escalate [ESCALATION] |
 | 🌅 Dawn Watch | 06:00 | Final push, prepare summary |
 | ☀️ Morning Report | 08:00 | Final summary, send to Telegram |
 
@@ -26,13 +26,37 @@ Each watch performs:
 
 1. **Read QUEST.md** — Check for active quests
 2. **Read JOURNAL.md** — Where did we leave off?
-3. **Decision:**
+3. **Check for errors:**
+   - Any `[RETRY-X]` tasks? → Monitor, allow retry
+   - Any `[RETRY-3]`? → Escalate to Blocked
+   - Any `[ESCALATION]`? → Send Telegram alert to Gilo
+4. **Decision:**
    - If quest active + making progress → Continue monitoring
    - If quest active + stalled >2h → Spawn nudge agent
    - If quest complete + more in queue → Spawn next agent
    - If all complete → Log completion, wait for morning
-4. **Update JOURNAL.md** — Log warden check
-5. **Commit changes** — `git add . && git commit -m "Warden check HH:MM"`
+5. **Update JOURNAL.md** — Log warden check
+6. **Commit changes** — `git add . && git commit -m "Warden check HH:MM"`
+
+### Error Detection Logic
+
+```
+Read JOURNAL.md:
+  ├─ Find last 5 entries
+  ├─ Check for ❌ Failed markers
+  └─ Check timestamps
+
+If failed entry < 30 min ago:
+  ├─ Check retry count
+  ├─ If retry < 3: Allow agent to retry
+  └─ If retry >= 3: Escalate
+
+If failed entry > 2h ago:
+  └─ Agent stalled → Nudge (spawn wake-up call)
+
+If [ESCALATION] tag found:
+  └─ Immediate Telegram alert
+```
 
 ---
 
@@ -99,6 +123,41 @@ Max $10 per night per agent. If approaching limit:
 - `ACTIVE-TASK.md` — Current context
 - `GOALS.md` — Strategic alignment
 - `WORKING.md` — Working memory
+
+---
+
+## Watch-Specific Error Handling
+
+### 🌙 Midnight Watch (00:00)
+**Error Focus:** Initial spawn validation
+- Check QUEST.md for syntax/errors
+- Validate agent assignments
+- If first quest has errors → Log to JOURNAL.md, mark [RETRY-1]
+
+### 🌑 Deep Night Watch (02:00)  
+**Error Focus:** Retry management
+- Check JOURNAL.md for [RETRY-1] entries
+- If task failed 1x → Allow [RETRY-2]
+- If task failed 2x → Allow [RETRY-3] (final attempt)
+- Update retry counts in QUEST.md
+
+### 🐺 Wolf Watch (04:00)
+**Error Focus:** Escalation decisions
+- Check for [RETRY-3] tasks → Move to Blocked, add [ESCALATION]
+- Check for [ESCALATION] tags → Send Telegram alert
+- Decide: Can agent complete by 06:00? If not → Pause, defer to tomorrow
+
+### 🌅 Dawn Watch (06:00)
+**Error Focus:** Final accounting
+- Compile all errors from night
+- Update JOURNAL.md Error Tracking section
+- Prepare summary of what succeeded/failed/escalated
+
+### ☀️ Morning Report (08:00 / 07:05 merged)
+**Error Focus:** Human handoff
+- List all escalated items for Gilo's attention
+- Suggest fixes for failed tasks
+- Recommend which quests to retry tonight
 
 ---
 
