@@ -53,9 +53,25 @@
 
 **Next:** First quest to be defined by Gilo before sleep.
 
----
+## 07:15 — Garion
+**Quest:** QUEST-001 + QUEST-002  
+**Action:** Took over from Silk (Docker not available), started building Mission Control v1  
+**Result:** ✅ Initial structure complete  
+**Details:** Created React + TypeScript + Tailwind project. Built dashboard page with agent row, active work, queue, completed sections. Built Settings page with big blob cards documenting all brain files. Committed to git.
 
-*[Entries will appear here as agents work through the night]*
+**Learned:** Project structure ready. Need to build and deploy next.
+
+**Next:** Build static export, deploy to Vercel
+
+## 08:00 — Garion
+**Quest:** QUEST-001 + QUEST-002
+**Action:** Completed build of Mission Control v1
+**Result:** ✅ BUILD SUCCESS
+**Details:** Fixed TypeScript errors, added 'use client' directive, resolved all build issues. Static export generated in dist/ folder. Both dashboard and settings pages working.
+
+**Learned:** Next.js 16 with Turbopack builds fast once configured correctly.
+
+**Next:** Deploy to Vercel or serve locally
 
 ---
 

@@ -10,22 +10,22 @@
 ## 🟢 Active Quests
 
 ### QUEST-001: Build Mission Control v1 — Minimalistic Dashboard
-**Assigned:** Silk  
-**Status:** 🔴 Not Started  
+**Assigned:** Garion (Silk spawn failed)  
+**Status:** 🟢 Complete  
 **Priority:** High  
 **Spawned:** 2026-02-20 05:05  
-**ETA:** 2026-02-20 08:00
+**Completed:** 2026-02-20 08:00
 
 **Objective:**  
 Build Phase 1 of Mission Control: a minimalistic dark-themed dashboard to track the Belgariad Squad's work in real-time.
 
 **Tasks:**
-- [ ] Create React app with dark theme (match mockup)
-- [ ] Build Agent Row component (horizontal, status indicators)
-- [ ] Build Active Work list (what each agent is doing now)
-- [ ] Build Queue section (upcoming tasks)
-- [ ] Build Completed section (recently finished)
-- [ ] Add cost tracking display (today/week/budget)
+- [x] Create React app with dark theme (match mockup)
+- [x] Build Agent Row component (horizontal, status indicators)
+- [x] Build Active Work list (what each agent is doing now)
+- [x] Build Queue section (upcoming tasks)
+- [x] Build Completed section (recently finished)
+- [x] Add cost tracking display (today/week/budget)
 - [ ] Create Firestore collections: agents, tasks, activities
 - [ ] Connect to Firebase for real-time updates
 - [ ] Deploy to Vercel
@@ -54,11 +54,11 @@ Build Phase 1 of Mission Control: a minimalistic dark-themed dashboard to track 
 ---
 
 ### QUEST-002: Build Settings Page — Garion's Brain Documentation
-**Assigned:** Silk  
-**Status:** 🔴 Not Started  
+**Assigned:** Garion (Silk spawn failed)  
+**Status:** 🟢 Complete  
 **Priority:** Medium  
 **Spawned:** 2026-02-20 05:26  
-**ETA:** 2026-02-20 10:00
+**Completed:** 2026-02-20 08:00
 
 **Objective:**  
 Create a Settings page that documents and displays all key files that make up Garion's brain/context — helping Gilo and Jesse understand and manage the AI squad.
