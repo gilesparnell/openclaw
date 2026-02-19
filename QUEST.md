@@ -53,7 +53,71 @@ Build Phase 1 of Mission Control: a minimalistic dark-themed dashboard to track 
 
 ---
 
-### QUEST-002: [TASK NAME]
+### QUEST-002: Build Settings Page — Garion's Brain Documentation
+**Assigned:** Silk  
+**Status:** 🔴 Not Started  
+**Priority:** Medium  
+**Spawned:** 2026-02-20 05:26  
+**ETA:** 2026-02-20 10:00
+
+**Objective:**  
+Create a Settings page that documents and displays all key files that make up Garion's brain/context — helping Gilo and Jesse understand and manage the AI squad.
+
+**Tasks:**
+- [ ] Create Settings page component (link from Mission Control top-right)
+- [ ] Design "big blob" card layout for file listings
+- [ ] Build hierarchical sections: User → Garion → Agents → System
+- [ ] Create FileCard component with title, description, usage info
+- [ ] Build ViewModal to display .md file contents (read-only)
+- [ ] Add file reading functionality (fetch from workspace)
+- [ ] Style with dark theme, matching Mission Control v1
+
+**Context:**
+- **Location:** Add to `/mission-control-v1/src/app/settings/page.tsx`
+- **Link:** "Settings" button in top-right of main Mission Control
+- **Design:** Big blob cards (like attached mockup style) — NOT minimal list view
+- **Hierarchy:**
+  1. **User** — USER.md (who Gilo is)
+  2. **Master Controller** — SOUL.md (who I am)
+  3. **Agents** — agents/*/SOUL.md (Silk, Barak, Polgara, etc.)
+  4. **System** — TOOLS.md, WORKING.md, QUEST.md, WARDENS.md, DAILY-SOURCES.md, etc.
+- **Card Content:**
+  - Heading: filename (e.g., "SOUL.md")
+  - Description: what it does
+  - Usage: when/how to use it
+- **Modal:** Click card → opens modal showing full .md content
+- **Editing:** View-only (Gilo uses chat to make changes)
+
+**Files to Document:**
+| Section | Files |
+|---------|-------|
+| User | USER.md |
+| Master Controller | SOUL.md |
+| Agents | agents/silk/SOUL.md, agents/barak/SOUL.md, agents/polgara/SOUL.md, agents/cenedra/SOUL.md, agents/beldin/SOUL.md, agents/taiba/SOUL.md |
+| Configuration | TOOLS.md, DAILY-SOURCES.md, GOALS.md |
+| Operations | WORKING.md, QUEST.md, WARDENS.md, JOURNAL.md, ACTIVE-TASK.md |
+| System | AGENTS.md, HEARTBEAT.md, BOOTSTRAP.md |
+
+**Design Requirements:**
+- Dark theme (#0a0a0f background)
+- Big, clickable cards with hover effects
+- Clear visual hierarchy (sections)
+- Modal with markdown rendering
+- Responsive grid layout
+
+**Completion Criteria:**
+- [ ] Settings page accessible from main dashboard
+- [ ] All key files documented with descriptions
+- [ ] Cards display filename + description + usage
+- [ ] Clicking card opens modal with full content
+- [ ] Content is read-only (no edit functionality)
+- [ ] Dark theme consistent with Mission Control
+- [ ] Works on mobile
+
+**Error Handling:**
+- Max retries: 3
+- On failure: Log to JOURNAL.md, mark task as [RETRY] or [ESCALATED]
+- Auto-retry: Yes (if retryable error) / No (if needs human)
 *Template for next quest*
 
 ---
