@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control — Belgariad Squad</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e2e8f0;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Minimal layout — no big boxes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header — clean, minimal */
+        header {
+            margin-bottom: 48px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Cost bar — subtle, inline */
+        .cost-bar {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        .cost-item {
+            display: flex;
+            gap: 6px;
+        }
+
+        .cost-label {
+            color: #64748b;
+        }
+
+        .cost-value {
+            color: #10b981;
+            font-weight: 500;
+        }
+
+        /* Section titles — minimal */
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #475569;
+            margin-bottom: 16px;
+        }
+
+        /* Agents — horizontal list, no cards */
+        .agents-row {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #1e1e2e;
+        }
+
+        .agent {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .agent-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .agent-avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 2px solid #0a0a0f;
+        }
+
+        .agent-avatar.idle::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            background: #64748b;
+            border-radius: 50%;
+            border: 2px solid #0a0a0f;
+        }
+
+        .agent-avatar.garion { background: #10b98120; }
+        .agent-avatar.barak { background: #3b82f620; }
+        .agent-avatar.silk { background: #f59e0b20; }
+        .agent-avatar.polgara { background: #a855f720; }
+
+        .agent-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .agent-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .agent-role {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .agent-status {
+            font-size: 11px;
+            color: #10b981;
+            margin-top: 2px;
+        }
+
+        .agent-status.idle {
+            color: #64748b;
+        }
+
+        /* Active Work — list view, no boxes */
+        .work-section {
+            margin-bottom: 48px;
+        }
+
+        .work-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .work-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #1e1e2e;
+        }
+
+        .work-item:last-child {
+            border-bottom: none;
+        }
+
+        .work-agent {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .work-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .work-title {
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .work-meta {
+            font-size: 12px;
+            color: #64748b;
+            display: flex;
+            gap: 12px;
+        }
+
+        .work-file {
+            color: #10b981;
+            font-family: monospace;
+        }
+
+        .work-cost {
+            font-size: 12px;
+            color: #475569;
+            text-align: right;
+            min-width: 60px;
+        }
+
+        .work-pulse {
+            width: 6px;
+            height: 6px;
+            background: #f59e0b;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Queue — simple text list */
+        .queue-section {
+            margin-bottom: 48px;
+        }
+
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 14px;
+            padding: 8px 0;
+        }
+
+        .queue-num {
+            color: #475569;
+            font-size: 12px;
+            min-width: 20px;
+        }
+
+        .queue-title {
+            flex: 1;
+        }
+
+        .queue-assignee {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* Completed — even more minimal */
+        .completed-section {
+            opacity: 0.6;
+        }
+
+        .completed-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 13px;
+            padding: 6px 0;
+            color: #64748b;
+        }
+
+        .completed-check {
+            color: #10b981;
+        }
+
+        /* Add button — inline, minimal */
+        .add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 0;
+            color: #64748b;
+            font-size: 13px;
+            cursor: pointer;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+        }
+
+        .add-btn:hover {
+            color: #10b981;
+        }
+
+        /* Modal — clean overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .modal {
+            background: #111118;
+            border: 1px solid #2e2e3e;
+            border-radius: 12px;
+            width: 480px;
+            padding: 24px;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .modal-subtitle {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background: #0a0a0f;
+            border: 1px solid #2e2e3e;
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .agent-select {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-chip {
+            padding: 8px 16px;
+            background: #1e1e2e;
+            border: 1px solid #2e2e3e;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .agent-chip:hover, .agent-chip.selected {
+            background: #10b98120;
+            border-color: #10b981;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #2e2e3e;
+            color: #64748b;
+        }
+
+        .btn-primary {
+            background: #10b981;
+            border: none;
+            color: #0a0a0f;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .agents-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .work-item {
+                flex-wrap: wrap;
+            }
+            
+            .work-cost {
+                width: 100%;
+                text-align: left;
+                margin-left: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Mission Control</h1>
+            <p class="subtitle">Belgariad Squad Command Center</p>
+            <div class="cost-bar">
+                <div class="cost-item">
+                    <span class="cost-label">Today:</span>
+                    <span class="cost-value">$47.20</span>
+                </div>
+                <div class="cost-item">
+                    <span class="cost-label">This week:</span>
+                    <span class="cost-value">$312.80</span>
+                </div>
+                <div class="cost-item">
+                    <span class="cost-label">Budget:</span>
+                    <span class="cost-value">62%</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Agents Row -->
+        <div class="agents-row">
+            <div class="agent">
+                <div class="agent-avatar garion online">⚔️</div>
+                <div class="agent-info">
+                    <span class="agent-name">Garion</span>
+                    <span class="agent-role">Master Controller</span>
+                    <span class="agent-status">Orchestrating</span>
+                </div>
+            </div>
+            <div class="agent">
+                <div class="agent-avatar barak online">🐻</div>
+                <div class="agent-info">
+                    <span class="agent-name">Barak</span>
+                    <span class="agent-role">Research</span>
+                    <span class="agent-status">Analyzing Smith.ai</span>
+                </div>
+            </div>
+            <div class="agent">
+                <div class="agent-avatar silk online">🎭</div>
+                <div class="agent-info">
+                    <span class="agent-name">Silk</span>
+                    <span class="agent-role">Code/Build</span>
+                    <span class="agent-status">Building Mission Control v1</span>
+                </div>
+            </div>
+            <div class="agent">
+                <div class="agent-avatar polgara idle">✨</div>
+                <div class="agent-info">
+                    <span class="agent-name">Polgara</span>
+                    <span class="agent-role">Content</span>
+                    <span class="agent-status idle">Standby</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Work -->
+        <section class="work-section">
+            <h2 class="section-title">Currently Working On</h2>
+            <div class="work-list">
+                <div class="work-item">
+                    <div class="work-agent barak">🐻</div>
+                    <div class="work-content">
+                        <div class="work-title">Research AI Receptionist Market — Smith.ai positioning</div>
+                        <div class="work-meta">
+                            <span>Task: Reading pricing page</span>
+                            <span class="work-file">/research/smithai_pricing.md</span>
+                        </div>
+                    </div>
+                    <div class="work-cost">$2.34</div>
+                    <div class="work-pulse"></div>
+                </div>
+                <div class="work-item">
+                    <div class="work-agent silk">🎭</div>
+                    <div class="work-content">
+                        <div class="work-title">Build Mission Control Phase 1 — Core data model</div>
+                        <div class="work-meta">
+                            <span>Task: Creating Firestore collections</span>
+                            <span class="work-file">/src/types/investigation.ts</span>
+                        </div>
+                    </div>
+                    <div class="work-cost">$4.12</div>
+                    <div class="work-pulse"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Queue -->
+        <section class="queue-section">
+            <h2 class="section-title">Up Next</h2>
+            <div class="queue-list">
+                <div class="queue-item">
+                    <span class="queue-num">1</span>
+                    <span class="queue-title">Build useInvestigations hook</span>
+                    <span class="queue-assignee">→ Silk</span>
+                </div>
+                <div class="queue-item">
+                    <span class="queue-num">2</span>
+                    <span class="queue-title">Create Firestore migration script</span>
+                    <span class="queue-assignee">→ Silk</span>
+                </div>
+                <div class="queue-item">
+                    <span class="queue-num">3</span>
+                    <span class="queue-title">Research Vapi vs Bland pricing</span>
+                    <span class="queue-assignee">→ Barak</span>
+                </div>
+            </div>
+            <button class="add-btn" onclick="document.getElementById('assignModal').style.display='flex'">
+                + Add task
+            </button>
+        </section>
+
+        <!-- Recently Completed -->
+        <section class="completed-section">
+            <h2 class="section-title">Recently Completed</h2>
+            <div class="completed-list">
+                <div class="completed-item">
+                    <span class="completed-check">✓</span>
+                    <span>Analyze Dialpad pricing — Barak completed 2h ago</span>
+                </div>
+                <div class="completed-item">
+                    <span class="completed-check">✓</span>
+                    <span>Created Investigation types schema — Silk completed 4h ago</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Assign Modal -->
+    <div class="modal-overlay" id="assignModal">
+        <div class="modal">
+            <div class="modal-title">Assign Task</div>
+            <div class="modal-subtitle">Create work for an agent</div>
+            
+            <div class="form-group">
+                <label class="form-label">What needs to be done?</label>
+                <input type="text" class="form-input" placeholder="e.g., Research competitor pricing">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Assign to</label>
+                <div class="agent-select">
+                    <div class="agent-chip selected">🐻 Barak</div>
+                    <div class="agent-chip">🎭 Silk</div>
+                    <div class="agent-chip">✨ Polgara</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Context (optional)</label>
+                <textarea class="form-textarea" placeholder="Background info for the agent..."></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="document.getElementById('assignModal').style.display='none'">Cancel</button>
+                <button class="btn btn-primary">Create & Spawn</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
