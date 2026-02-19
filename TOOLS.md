@@ -29,7 +29,21 @@ Things like:
 
 ## Why Separate?
 
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without sharing your infrastructure.
+
+---
+
+## 🗂️ Repositories
+
+### Garion State / Configuration
+**Backup/Source of Truth:** `https://github.com/gilesparnell/openclaw`
+**Local Workspace:** `/Users/gilesparnell/.openclaw/workspace/`
+**What it contains:** Agent SOULs, memory, goals, configs
+
+### awe2m8 / Mission Control
+**Repo:** `https://github.com/gilesparnell/awe2m8`
+**Local Path:** `/Users/gilesparnell/Documents/VSStudio/awe2m8-local`
+**What it contains:** Mission Control app, customer code, AllConvos platform
 
 ---
 
