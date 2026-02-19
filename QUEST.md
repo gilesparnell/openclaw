@@ -9,34 +9,47 @@
 
 ## 🟢 Active Quests
 
-### QUEST-001: [TASK NAME]
-**Assigned:** [Silk/Barak/Polgara]  
-**Status:** 🔴 Not Started / 🟡 In Progress / 🟢 Complete  
-**Priority:** High / Medium / Low  
-**Spawned:** [Timestamp]  
-**ETA:** [Timestamp]
+### QUEST-001: Build Mission Control v1 — Minimalistic Dashboard
+**Assigned:** Silk  
+**Status:** 🔴 Not Started  
+**Priority:** High  
+**Spawned:** 2026-02-20 05:05  
+**ETA:** 2026-02-20 08:00
 
 **Objective:**  
-[One sentence: What needs to happen]
+Build Phase 1 of Mission Control: a minimalistic dark-themed dashboard to track the Belgariad Squad's work in real-time.
 
 **Tasks:**
-- [ ] Task 1
-- [ ] Task 2
-- [ ] Task 3
+- [ ] Create React app with dark theme (match mockup)
+- [ ] Build Agent Row component (horizontal, status indicators)
+- [ ] Build Active Work list (what each agent is doing now)
+- [ ] Build Queue section (upcoming tasks)
+- [ ] Build Completed section (recently finished)
+- [ ] Add cost tracking display (today/week/budget)
+- [ ] Create Firestore collections: agents, tasks, activities
+- [ ] Connect to Firebase for real-time updates
+- [ ] Deploy to Vercel
 
 **Context:**
-- Files: `[paths to relevant files]`
-- Branches: `[git branch]`
-- Notes: `[any important context]`
+- **Mockup:** `/mission-control-v1-mockup.html` — use this as the exact design reference
+- **Location:** Create in `/Users/gilesparnell/Documents/VSStudio/awe2m8-local/mission-control-v1/`
+- **Stack:** React + TypeScript + Tailwind CSS + Firebase
+- **Goal:** Dogfood our own system — use this to track agents building more capability
+
+**Design Requirements (from mockup):**
+- Dark theme (#0a0a0f background)
+- No big boxes/cards — clean list views
+- Horizontal agent row with online/idle status
+- Active work shows: agent, task title, file being edited, cost
+- Subtle cost bar in header
+- Minimal borders, focus on typography
 
 **Completion Criteria:**
-- [ ] Criteria 1
-- [ ] Criteria 2
-
-**Error Handling:**
-- Max retries: 3
-- On failure: Log to JOURNAL.md, mark task as [RETRY] or [ESCALATED]
-- Auto-retry: Yes (if retryable error) / No (if needs human)
+- [ ] Dashboard renders with all 4 agents (Garion, Barak, Silk, Polgara)
+- [ ] Real-time updates when agents change status
+- [ ] Cost tracking displays correctly
+- [ ] Deployed and accessible via URL
+- [ ] Gilo can view it on his phone
 
 ---
 
