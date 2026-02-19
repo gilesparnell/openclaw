@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control — awe2m8 AI Squad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .agent-dot { box-shadow: 0 0 0 2px white; }
+        .sidebar-item:hover { background-color: rgba(59, 130, 246, 0.05); }
+        .task-card { transition: all 0.15s ease; }
+        .task-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .expand-icon { transition: transform 0.2s ease; }
+        .expand-icon.expanded { transform: rotate(90deg); }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 h-screen overflow-hidden">
+    <div class="flex flex-col h-full">
+        
+        <!-- AGENT STATUS BAR -->
+        <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🎯</span>
+                    <span class="font-semibold text-gray-900">Mission Control</span>
+                </div>
+                
+                <!-- Agent Status Pills -->
+                <div class="flex items-center gap-3">
+                    <!-- Barak -->
+                    <button onclick="showAgentDetail('barak')" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-slow agent-dot"></span>
+                        <span class="text-sm font-medium text-gray-700">Barak</span>
+                        <span class="text-xs text-gray-500">(The Bear — Deep Research)</span>
+                    </button>
+                    
+                    <!-- Silk -->
+                    <button onclick="showAgentDetail('silk')" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 hover:bg-amber-100 transition-colors">
+                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse agent-dot"></span>
+                        <span class="text-sm font-medium text-gray-700">Silk</span>
+                        <span class="text-xs text-gray-500">(Prince Kheldar — Code/Trickster)</span>
+                    </button>
+                    
+                    <!-- Polgara -->
+                    <button onclick="showAgentDetail('polgara')" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 transition-colors">
+                        <span class="w-2 h-2 rounded-full bg-gray-400 agent-dot"></span>
+                        <span class="text-sm font-medium text-gray-700">Polgara</span>
+                        <span class="text-xs text-gray-500">(The Sorceress — Content & SEO)</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Right side: Mobile menu -->
+            <div class="flex items-center gap-3">
+                <button id="mobile-menu-btn" class="lg:hidden p-2 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="flex flex-1 overflow-hidden">
+            
+            <!-- SIDEBAR: Hierarchical Navigation -->
+            <aside id="sidebar" class="w-72 bg-white border-r border-gray-200 flex flex-col shrink-0 lg:translate-x-0 -translate-x-full lg:static absolute h-full z-10 transition-transform duration-200">
+                <div class="p-4 border-b border-gray-100">
+                    <button onclick="createNewMission()" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        New Mission
+                    </button>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto p-2">
+                    <!-- Active Missions Section -->
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between px-3 py-2">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Active Missions</span>
+                            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">2</span>
+                        </div>
+                        
+                        <!-- Mission 1 -->
+                        <div class="sidebar-item rounded-lg">
+                            <button onclick="toggleMission('mission-1')" class="w-full flex items-center gap-2 px-3 py-2 text-left">
+                                <svg id="mission-1-icon" class="w-4 h-4 text-gray-400 expand-icon expanded" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                                <span class="text-lg">📋</span>
+                                <span class="text-sm font-medium text-gray-700">Client Onboarding Flow</span>
+                            </button>
+                            <div id="mission-1-tasks" class="ml-6 space-y-1">
+                                <button onclick="selectTask('research-prospect')" class="w-full flex items-center gap-2 px-3 py-2 text-left rounded-lg hover:bg-gray-100 transition-colors task-item" data-task="research-prospect">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                    <span class="text-sm text-gray-600">The Bear prospect</span>
+                                    <span class="ml-auto text-xs text-emerald-600">Barak</span>
+                                </button>
+                                <button onclick="selectTask('design-workflow')" class="w-full flex items-center gap-2 px-3 py-2 text-left rounded-lg hover:bg-gray-100 transition-colors task-item" data-task="design-workflow">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                    <span class="text-sm text-gray-600">Design workflow</span>
+                                    <span class="ml-auto text-xs text-amber-600">Silk</span>
+                                </button>
+                                <button onclick="selectTask('write-landing')" class="w-full flex items-center gap-2 px-3 py-2 text-left rounded-lg hover:bg-gray-100 transition-colors task-item" data-task="write-landing">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                                    <span class="text-sm text-gray-600">Write landing page</span>
+                                    <span class="ml-auto text-xs text-gray-500">Polgara</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Mission 2 -->
+                        <div class="sidebar-item rounded-lg">
+                            <button onclick="toggleMission('mission-2')" class="w-full flex items-center gap-2 px-3 py-2 text-left">
+                                <svg id="mission-2-icon" class="w-4 h-4 text-gray-400 expand-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                                <span class="text-lg">📋</span>
+                                <span class="text-sm font-medium text-gray-700">SEO Optimization Q1</span>
+                            </button>
+                            <div id="mission-2-tasks" class="ml-6 space-y-1 hidden">
+                                <button onclick="selectTask('keyword-research')" class="w-full flex items-center gap-2 px-3 py-2 text-left rounded-lg hover:bg-gray-100 transition-colors task-item" data-task="keyword-research">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                                    <span class="text-sm text-gray-600">Keyword research</span>
+                                    <span class="ml-auto text-xs text-gray-500">Barak</span>
+                                </button>
+                                <button onclick="selectTask('blog-series')" class="w-full flex items-center gap-2 px-3 py-2 text-left rounded-lg hover:bg-gray-100 transition-colors task-item" data-task="blog-series">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                                    <span class="text-sm text-gray-600">Blog series</span>
+                                    <span class="ml-auto text-xs text-gray-500">Polgara</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Agent Workspaces -->
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between px-3 py-2">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Agent Queues</span>
+                            <button onclick="manageAllQueues()" class="text-xs text-blue-600 hover:text-blue-700">Manage</button>
+                        </div>
+                        <div class="space-y-1">
+                            <button onclick="showAgentQueue('barak')" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors group">
+                                <span>🐻</span>
+                                <div class="flex-1 text-left">
+                                    <span class="text-sm text-gray-600">Barak's Queue</span>
+                                    <div class="text-xs text-gray-400 truncate">Researching Acme Plumbing...</div>
+                                </div>
+                                <span class="text-xs bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-full">3</span>
+                            </button>
+                            <button onclick="showAgentQueue('silk')" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors group">
+                                <span>🎭</span>
+                                <div class="flex-1 text-left">
+                                    <span class="text-sm text-gray-600">Silk's Queue</span>
+                                    <div class="text-xs text-gray-400 truncate">Designing GHL workflow...</div>
+                                </div>
+                                <span class="text-xs bg-amber-100 text-amber-600 px-2 py-0.5 rounded-full">1</span>
+                            </button>
+                            <button onclick="showAgentQueue('polgara')" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors group">
+                                <span>🔮</span>
+                                <div class="flex-1 text-left">
+                                    <span class="text-sm text-gray-600">Polgara's Queue</span>
+                                    <div class="text-xs text-gray-400 truncate">Idle</div>
+                                </div>
+                                <span class="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">0</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Library -->
+                    <div>
+                        <button onclick="showLibrary()" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                            <span>📚</span>
+                            <span class="text-sm text-gray-600">Library</span>
+                            <span class="ml-auto text-xs text-gray-400">Archived</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Overlay for mobile -->
+            <div id="sidebar-overlay" class="lg:hidden hidden fixed inset-0 bg-black/20 z-0" onclick="toggleSidebar()"></div>
+
+            <!-- TASK INSPECTOR PANEL -->
+            <main class="flex-1 overflow-y-auto bg-gray-50/50">
+                <div class="max-w-4xl mx-auto p-6">
+                    
+                    <!-- Breadcrumb -->
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                        <button onclick="showMissionsList()" class="hover:text-gray-700">Missions</button>
+                        <span>/</span>
+                        <button onclick="showMissionDetail()" class="hover:text-gray-700">Client Onboarding Flow</button>
+                        <span>/</span>
+                        <span class="text-gray-900 font-medium">The Bear prospect</span>
+                    </div>
+                    
+                    <!-- Task Header -->
+                    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded">In Progress</span>
+                                    <span class="text-sm text-gray-500">Barak · Coder elapsed</span>
+                                </div>
+                                <h1 class="text-2xl font-semibold text-gray-900">The Bear prospect: "Acme Plumbing"</h1>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="approveTask()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                    ✅ Approve
+                                </button>
+                                <button onclick="showMoreActions()" class="p-2 hover:bg-gray-100 rounded-lg">
+                                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress Bar -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                            <span class="text-sm text-gray-500">65%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Left Column: Acceptance Criteria + Artifact -->
+                        <div class="lg:col-span-2 space-y-6">
+                            
+                            <!-- Acceptance Criteria -->
+                            <div class="bg-white rounded-xl border border-gray-200 p-6">
+                                <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">Acceptance Criteria</h2>
+                                <div class="space-y-3">
+                                    <label class="flex items-start gap-3 cursor-pointer">
+                                        <input type="checkbox" checked class="mt-1 w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500">
+                                        <span class="text-gray-700"><span class="line-through text-gray-400">Company size identified</span></span>
+                                    </label>
+                                    <label class="flex items-start gap-3 cursor-pointer">
+                                        <input type="checkbox" checked class="mt-1 w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500">
+                                        <span class="text-gray-700"><span class="line-through text-gray-400">Current pain points documented</span></span>
+                                    </label>
+                                    <label class="flex items-start gap-3 cursor-pointer">
+                                        <input type="checkbox" class="mt-1 w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500">
+                                        <span class="text-gray-700">Competing solutions noted</span>
+                                    </label>
+                                    <label class="flex items-start gap-3 cursor-pointer">
+                                        <input type="checkbox" checked class="mt-1 w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500">
+                                        <span class="text-gray-700"><span class="line-through text-gray-400">Lead scoring completed (Hot)</span></span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Artifact Viewer -->
+                            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                                <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50/50">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-lg">📝</span>
+                                        <h2 class="font-semibold text-gray-900">Artifact: The Bear Report</h2>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button onclick="downloadArtifact()" class="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                            </svg>
+                                            Download
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="p-6 prose prose-slate max-w-none">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Acme Plumbing — Lead The Bear</h3>
+                                    
+                                    <div class="grid grid-cols-2 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 uppercase">Company</span>
+                                            <p class="text-sm font-medium text-gray-900">Acme Plumbing Pty Ltd</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 uppercase">Size</span>
+                                            <p class="text-sm font-medium text-gray-900">12 employees, $2.4M annual revenue</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 uppercase">Location</span>
+                                            <p class="text-sm font-medium text-gray-900">Sydney, NSW</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-medium text-gray-500 uppercase">Lead Score</span>
+                                            <p class="text-sm font-semibold text-emerald-600">🔥 Hot</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <h4 class="font-semibold text-gray-900 mb-2">Pain Points</h4>
+                                    <ol class="list-decimal list-inside space-y-2 text-gray-700 mb-6">
+                                        <li>Missing <strong>40% of after-hours calls</strong> — estimated $300K/year in lost revenue</li>
+                                        <li><strong>No CRM integration</strong> — manual data entry, leads falling through cracks</li>
+                                        <li>Office manager overwhelmed — handling 80+ calls/day with no automation</li>
+                                    </ol>
+                                    
+                                    <h4 class="font-semibold text-gray-900 mb-2">Opportunity</h4>
+                                    <p class="text-gray-700 mb-4">High-value emergency plumbing market. Average job $800-1500. Currently losing 8-12 calls/night to voicemail.</p>
+                                    
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                        <p class="text-sm text-blue-800"><strong>💡 Recommendation:</strong> Prioritize 24/7 AI receptionist demo. Emphasize after-hours capture and CRM auto-logging.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column: BEAR Context → Verification Chain → Sources -->
+                        <div class="space-y-6">
+                            
+                            <!-- BEAR Context -->
+                            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                                <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-emerald-50 to-emerald-100/50">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-lg">🐻</span>
+                                        <h2 class="font-semibold text-gray-900">BEAR Context</h2>
+                                    </div>
+                                    <span class="text-xs text-emerald-600 font-medium">Pre-loaded from SOUL.md</span>
+                                </div>
+                                
+                                <!-- Agent Identity -->
+                                <div class="px-6 py-4 border-b border-gray-100">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-xl">🐻</div>
+                                        <div>
+                                            <p class="font-semibold text-gray-900">Barak — The Bear</p>
+                                            <p class="text-sm text-gray-500">Deep Research Specialist</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm text-gray-600 space-y-2">
+                                        <p><strong>Role:</strong> Competitive analysis, market research, deep digging</p>
+                                        <p><strong>Style:</strong> Thorough, evidence-based, leaves no stone unturned</p>
+                                        <p><strong>Model:</strong> Claude Haiku / Moonshot (cost-optimized)</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Current Task Context -->
+                                <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Current Focus</h3>
+                                    <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none" rows="3">Research Acme Plumbing Pty Ltd for sales call preparation. Focus on: company size, pain points (especially after-hours calls), competing solutions they're considering, and lead scoring against ICP. Prioritize actionable intel for demo.</textarea>
+                                </div>
+                                
+                                <!-- AI-Suggested Additions -->
+                                <div class="px-6 py-4 border-b border-gray-100">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h3 class="text-xs font-semibold text-purple-600 uppercase tracking-wide">💡 AI-Suggested Focus Areas</h3>
+                                        <span class="text-xs text-gray-400">Based on awe2m8 goals</span>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="flex items-start gap-2 cursor-pointer">
+                                            <input type="checkbox" class="mt-0.5 w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500">
+                                            <span class="text-sm text-gray-700">Check if they use ServiceTitan or similar (competitor intel)</span>
+                                        </label>
+                                        <label class="flex items-start gap-2 cursor-pointer">
+                                            <input type="checkbox" class="mt-0.5 w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500">
+                                            <span class="text-sm text-gray-700">Look for "emergency plumber" ad spend (indicates pain)</span>
+                                        </label>
+                                        <label class="flex items-start gap-2 cursor-pointer">
+                                            <input type="checkbox" class="mt-0.5 w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500">
+                                            <span class="text-sm text-gray-700">Find Glassdoor reviews (employee sentiment on workload)</span>
+                                        </label>
+                                    </div>
+                                    <button onclick="addSuggestions()" class="mt-3 text-xs text-purple-600 hover:text-purple-700 font-medium">
+                                        + Add selected to context
+                                    </button>
+                                </div>
+                                
+                                <!-- Queue Preview -->
+                                <div class="px-6 py-4 border-b border-gray-100 bg-amber-50/30">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">📋 Next in Queue</h3>
+                                        <button onclick="editQueue()" class="text-xs text-blue-600 hover:text-blue-700 font-medium">Edit Queue</button>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            <span class="text-gray-700 flex-1">Complete Acme Plumbing research</span>
+                                            <span class="text-xs text-gray-400">Current</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                                            <span class="text-gray-600 flex-1">Research competitor: Dialpad</span>
+                                            <button onclick="reorderTask(2, 'up')" class="text-gray-400 hover:text-gray-600">↑</button>
+                                            <button onclick="removeTask(2)" class="text-gray-400 hover:text-red-500">×</button>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                                            <span class="text-gray-600 flex-1">Analyze G2 reviews for Smith.ai</span>
+                                            <button onclick="reorderTask(3, 'up')" class="text-gray-400 hover:text-gray-600">↑</button>
+                                            <button onclick="removeTask(3)" class="text-gray-400 hover:text-red-500">×</button>
+                                        </div>
+                                    </div>
+                                    <button onclick="addToQueue()" class="mt-2 text-xs text-blue-600 hover:text-blue-700 font-medium">
+                                        + Add task to queue
+                                    </button>
+                                </div>
+                                
+                                <!-- Action Buttons -->
+                                <div class="px-6 py-4 flex gap-2">
+                                    <button onclick="repromptAgent()" class="flex-1 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                        💾 Save & Reprompt Barak
+                                    </button>
+                                    <button onclick="skipToNext()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium rounded-lg transition-colors">
+                                        Skip →
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Verification Chain -->
+                            <div class="bg-white rounded-xl border border-gray-200 p-6">
+                                <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">⚡ Verification Chain</h2>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">✓</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">Barak</p>
+                                            <p class="text-xs text-gray-500">Generated research report</p>
+                                        </div>
+                                        <span class="text-xs text-gray-400">08:42</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">✓</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">Silk</p>
+                                            <p class="text-xs text-gray-500">Verified against ICP criteria</p>
+                                        </div>
+                                        <span class="text-xs text-gray-400">08:45</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs">⏳</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">Garion</p>
+                                            <p class="text-xs text-gray-500">Awaiting approval</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sources -->
+                            <div class="bg-white rounded-xl border border-gray-200 p-6">
+                                <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">🔗 Sources</h2>
+                                <div class="space-y-3">
+                                    <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 font-bold text-xs">in</div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate">LinkedIn — Acme Plumbing</p>
+                                            <p class="text-xs text-gray-500">Company profile & employee count</p>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100">
+                                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-green-600 font-bold text-xs">A</div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate">ASIC Company Search</p>
+                                            <p class="text-xs text-gray-500">Registration & revenue data</p>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100">
+                                        <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 font-bold text-xs">G2</div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate">G2 Reviews</p>
+                                            <p class="text-xs text-gray-500">Competitor: ServiceTitan</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Agent Detail Modal (Hidden by default) -->
+    <div id="agent-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">Agent Status</h3>
+                <button onclick="closeAgentModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="agent-modal-content">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+        
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleSidebar);
+        
+        // Mission expand/collapse
+        function toggleMission(missionId) {
+            const tasks = document.getElementById(missionId + '-tasks');
+            const icon = document.getElementById(missionId + '-icon');
+            tasks.classList.toggle('hidden');
+            icon.classList.toggle('expanded');
+        }
+        
+        // Task selection
+        function selectTask(taskId) {
+            // Remove active state from all tasks
+            document.querySelectorAll('.task-item').forEach(el => {
+                el.classList.remove('bg-blue-50', 'border-blue-200');
+            });
+            // Add active state to selected
+            const selected = document.querySelector(`[data-task="${taskId}"]`);
+            if (selected) {
+                selected.classList.add('bg-blue-50', 'border-blue-200');
+            }
+            // In real app, this would load the task content
+            console.log('Selected task:', taskId);
+        }
+        
+        // Agent detail modal
+        function showAgentDetail(agent) {
+            const modal = document.getElementById('agent-modal');
+            const content = document.getElementById('agent-modal-content');
+            
+            const agentData = {
+                barak: { name: 'Barak', role: 'The Bear — Deep Research', status: 'online', task: 'Researching Acme Plumbing', elapsed: '12m' },
+                silk: { name: 'Silk', role: 'Prince Kheldar — Code/Trickster', status: 'working', task: 'Designing GHL workflow', elapsed: '8m' },
+                polgara: { name: 'Polgara', role: 'The Sorceress — Content & SEO', status: 'idle', task: 'Waiting for assignment', elapsed: '-' }
+            };
+            
+            const data = agentData[agent];
+            content.innerHTML = `
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 rounded-full ${data.status === 'online' ? 'bg-emerald-100' : data.status === 'working' ? 'bg-amber-100' : 'bg-gray-100'} flex items-center justify-center text-2xl">
+                        ${agent === 'barak' ? '🐻' : agent === 'silk' ? '🎭' : '🔮'}
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg">${data.name}</h4>
+                        <p class="text-sm text-gray-500">${data.role}</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-500">Status</span>
+                        <span class="text-sm font-medium ${data.status === 'online' ? 'text-emerald-600' : data.status === 'working' ? 'text-amber-600' : 'text-gray-500'}">${data.status}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-500">Current Task</span>
+                        <span class="text-sm font-medium">${data.task}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-500">Elapsed</span>
+                        <span class="text-sm font-medium">${data.elapsed}</span>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+        
+        function closeAgentModal() {
+            document.getElementById('agent-modal').classList.add('hidden');
+        }
+        
+        // Placeholder functions
+        function createNewMission() { alert('Create new mission - coming in Phase 2'); }
+        function showAgentQueue(agent) { 
+            alert(`Opening ${agent}'s queue manager\n\nHere you would see:\n• Current task\n• Queued tasks (reorderable)\n• Completed tasks\n• Option to reprioritize or cancel`);
+        }
+        function manageAllQueues() {
+            alert('Queue Manager\n\nDrag & drop interface to:\n• Reorder tasks across agents\n• Reassign tasks to different agents\n• Pause/resume agents\n• View workload distribution');
+        }
+        function showLibrary() { console.log('Show library'); }
+        function showMissionsList() { console.log('Show missions list'); }
+        function showMissionDetail() { console.log('Show mission detail'); }
+        function approveTask() { alert('Task approved! Barak will move to next queue item.'); }
+        function showMoreActions() { alert('More actions:\n• Cancel task\n• Regenerate with different focus\n• Edit artifact directly\n• Reassign to different agent'); }
+        function downloadArtifact() { alert('Downloading research-report.md'); }
+        
+        // BEAR Context & Queue Management
+        function repromptAgent() { 
+            alert('💾 Context Saved!\n\nBarak will be reprompted on next heartbeat with:\n• Updated research focus\n• Selected AI suggestions\n• Queue priority changes');
+        }
+        
+        function addSuggestions() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const count = checkboxes.length;
+            if (count > 0) {
+                alert(`Added ${count} focus areas to Barak's context!\n\nThese will be incorporated into the next research cycle.`);
+            } else {
+                alert('Select at least one suggestion to add.');
+            }
+        }
+        
+        function editQueue() {
+            alert('📝 Queue Editor\n\nFull drag-and-drop interface:\n• Reorder tasks\n• Add new tasks\n• Remove or defer tasks\n• Set priorities (P0, P1, P2)');
+        }
+        
+        function reorderTask(taskId, direction) {
+            alert(`Moved task ${taskId} ${direction === 'up' ? 'up' : 'down'} in queue`);
+        }
+        
+        function removeTask(taskId) {
+            if (confirm('Remove this task from queue?')) {
+                alert(`Task ${taskId} removed. Barak will skip this and move to next item.`);
+            }
+        }
+        
+        function addToQueue() {
+            const newTask = prompt('What should Barak research next?');
+            if (newTask) {
+                alert(`Added to queue: "${newTask}"\n\nBarak will tackle this after completing current task.`);
+            }
+        }
+        
+        function skipToNext() {
+            if (confirm('Skip current task and move to next in queue?')) {
+                alert('Barak will complete current task minimally and move to next queue item.');
+            }
+        }
+    </script>
+</body>
+</html>
