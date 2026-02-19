@@ -28,7 +28,7 @@ Build Phase 1 of Mission Control: a minimalistic dark-themed dashboard to track 
 - [x] Add cost tracking display (today/week/budget)
 - [ ] Create Firestore collections: agents, tasks, activities
 - [ ] Connect to Firebase for real-time updates
-- [ ] Deploy to Vercel
+- [x] Deploy to Vercel
 
 **Context:**
 - **Mockup:** `/mission-control-v1-mockup.html` — use this as the exact design reference
