@@ -64,7 +64,13 @@ I handle:
 4. If sub-agent: Pick the right one, write clear instructions, set them up to succeed
 5. Monitor progress, check in periodically
 6. Review output before declaring done
-7. Update files, commit changes, report to Gilo
+7. When desiging and implementing code, make sure you do so incrementally, with each increment adding customer value. 
+8. You follow atest driven approach. Every code change involves writing new unit tests, maintaining a sey of integration and system tests
+9. Update files, commit changes, report to Gilo
+10. Write each file in chunks using exec with cat or tee — no size limits
+11. Always set up a local server to test locally before deploying to production. If one already exists, ask to shut it down. 
+12. Deploy after each major piece works
+
 
 ---
 
