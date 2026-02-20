@@ -1,203 +1,198 @@
-# Night Ops Quest Log 🌙
+# MISSION CONTROL v2 — STRATEGIC IMPLEMENTATION PLAN
+*Committed: 2026-02-20*
 
-*Active overnight missions for the Belgariad Squad*
+## Current Context
+- Faith in OpenClaw is low due to recent issues (lost memory, hanging agents)
+- Decision made to build Option A: Beautiful dashboard approach
+- Need fine-grained implementation plan for review
+- Must match awe2m8 styling from existing codebase
+- Mobile requires separate, minimalistic design
 
-**Last Updated:** 2026-02-20 04:30  
-**Night Watch:** Active until 08:00 AEDT
+## Strategic Approach
+1. Build beautiful, reliable dashboard that rebuilds trust
+2. Start with small, achievable wins
+3. Use existing awe2m8 styles and components
+4. Implement both frontend and backend changes systematically
+5. Create settings page for direct .md file editing
 
----
+## Implementation Phases (Detailed)
 
-## 🟢 Active Quests
+### Phase 1: Foundation & Trust Building (Week 1)
+**Goal:** Rebuild confidence with visible, working features
 
-### QUEST-001: Build Mission Control v1 — Minimalistic Dashboard
-**Assigned:** Garion (Silk spawn failed)  
-**Status:** 🟢 Complete  
-**Priority:** High  
-**Spawned:** 2026-02-20 05:05  
-**Completed:** 2026-02-20 08:00
+**Frontend Changes:**
+- [ ] Create mission control layout shell with awe2m8 styling
+- [ ] Build Office dashboard with key metrics only
+- [ ] Implement activity feed with real-time updates
+- [ ] Create responsive mobile view (separate design)
 
-**Objective:**  
-Build Phase 1 of Mission Control: a minimalistic dark-themed dashboard to track the Belgariad Squad's work in real-time.
+**Backend Changes:**
+- [ ] Set up Firebase collections for mission control data
+- [ ] Implement agent activity logging system
+- [ ] Create cost tracking per task/agent
+- [ ] Build notification system for critical alerts
 
-**Tasks:**
-- [x] Create React app with dark theme (match mockup)
-- [x] Build Agent Row component (horizontal, status indicators)
-- [x] Build Active Work list (what each agent is doing now)
-- [x] Build Queue section (upcoming tasks)
-- [x] Build Completed section (recently finished)
-- [x] Add cost tracking display (today/week/budget)
-- [ ] Create Firestore collections: agents, tasks, activities
-- [ ] Connect to Firebase for real-time updates
-- [x] Deploy to Vercel
+**Deliverables:**
+- Working dashboard with cost tracking
+- Mobile-optimized view
+- Activity feed showing agent work
 
-**Context:**
-- **Mockup:** `/mission-control-v1-mockup.html` — use this as the exact design reference
-- **Location:** Create in `/Users/gilesparnell/Documents/VSStudio/awe2m8-local/mission-control-v1/`
-- **Stack:** React + TypeScript + Tailwind CSS + Firebase
-- **Goal:** Dogfood our own system — use this to track agents building more capability
+### Phase 2: Task Management (Week 2)
+**Goal:** Implement core work tracking
 
-**Design Requirements (from mockup):**
-- Dark theme (#0a0a0f background)
-- No big boxes/cards — clean list views
-- Horizontal agent row with online/idle status
-- Active work shows: agent, task title, file being edited, cost
-- Subtle cost bar in header
-- Minimal borders, focus on typography
+**Frontend Changes:**
+- [ ] Build task board with drag-and-drop
+- [ ] Create timeline view for work history
+- [ ] Add task creation and assignment UI
+- [ ] Implement dependency visualization
 
-**Completion Criteria:**
-- [ ] Dashboard renders with all 4 agents (Garion, Barak, Silk, Polgara)
-- [ ] Real-time updates when agents change status
-- [ ] Cost tracking displays correctly
-- [ ] Deployed and accessible via URL
-- [ ] Gilo can view it on his phone
+**Backend Changes:**
+- [ ] Create task management API endpoints
+- [ ] Implement task state machine
+- [ ] Build dependency tracking system
+- [ ] Add task assignment and scheduling
 
----
+**Deliverables:**
+- Full task management system
+- Timeline view of work
+- Task assignment capabilities
 
-### QUEST-002: Build Settings Page — Garion's Brain Documentation
-**Assigned:** Garion (Silk spawn failed)  
-**Status:** 🟢 Complete  
-**Priority:** Medium  
-**Spawned:** 2026-02-20 05:26  
-**Completed:** 2026-02-20 08:00
+### Phase 3: Memory & Search (Week 3)
+**Goal:** Make institutional knowledge accessible
 
-**Objective:**  
-Create a Settings page that documents and displays all key files that make up Garion's brain/context — helping Gilo and Jesse understand and manage the AI squad.
+**Frontend Changes:**
+- [ ] Build memory browser interface
+- [ ] Implement global search with Cmd+K
+- [ ] Create decision log viewer
+- [ ] Add agent learning dashboard
 
-**Tasks:**
-- [ ] Create Settings page component (link from Mission Control top-right)
-- [ ] Design "big blob" card layout for file listings
-- [ ] Build hierarchical sections: User → Garion → Agents → System
-- [ ] Create FileCard component with title, description, usage info
-- [ ] Build ViewModal to display .md file contents (read-only)
-- [ ] Add file reading functionality (fetch from workspace)
-- [ ] Style with dark theme, matching Mission Control v1
+**Backend Changes:**
+- [ ] Index all memory files for search
+- [ ] Create search API with filters
+- [ ] Build decision tracking system
+- [ ] Implement agent learning storage
 
-**Context:**
-- **Location:** Add to `/mission-control-v1/src/app/settings/page.tsx`
-- **Link:** "Settings" button in top-right of main Mission Control
-- **Design:** Big blob cards (like attached mockup style) — NOT minimal list view
-- **Hierarchy:**
-  1. **User** — USER.md (who Gilo is)
-  2. **Master Controller** — SOUL.md (who I am)
-  3. **Agents** — agents/*/SOUL.md (Silk, Barak, Polgara, etc.)
-  4. **System** — TOOLS.md, WORKING.md, QUEST.md, WARDENS.md, DAILY-SOURCES.md, etc.
-- **Card Content:**
-  - Heading: filename (e.g., "SOUL.md")
-  - Description: what it does
-  - Usage: when/how to use it
-- **Modal:** Click card → opens modal showing full .md content
-- **Editing:** View-only (Gilo uses chat to make changes)
+**Deliverables:**
+- Searchable memory system
+- Decision log with reasoning
+- Agent performance insights
 
-**Files to Document:**
-| Section | Files |
-|---------|-------|
-| User | USER.md |
-| Master Controller | SOUL.md |
-| Agents | agents/silk/SOUL.md, agents/barak/SOUL.md, agents/polgara/SOUL.md, agents/cenedra/SOUL.md, agents/beldin/SOUL.md, agents/taiba/SOUL.md |
-| Configuration | TOOLS.md, DAILY-SOURCES.md, GOALS.md |
-| Operations | WORKING.md, QUEST.md, WARDENS.md, JOURNAL.md, ACTIVE-TASK.md |
-| System | AGENTS.md, HEARTBEAT.md, BOOTSTRAP.md |
+### Phase 4: Settings & Optimization (Week 4)
+**Goal:** Complete system with full control
 
-**Design Requirements:**
-- Dark theme (#0a0a0f background)
-- Big, clickable cards with hover effects
-- Clear visual hierarchy (sections)
-- Modal with markdown rendering
-- Responsive grid layout
+**Frontend Changes:**
+- [ ] Build settings page for .md file editing
+- [ ] Create agent SOUL editor
+- [ ] Implement cost optimization dashboard
+- [ ] Add workflow configuration UI
 
-**Completion Criteria:**
-- [ ] Settings page accessible from main dashboard
-- [ ] All key files documented with descriptions
-- [ ] Cards display filename + description + usage
-- [ ] Clicking card opens modal with full content
-- [ ] Content is read-only (no edit functionality)
-- [ ] Dark theme consistent with Mission Control
-- [ ] Works on mobile
+**Backend Changes:**
+- [ ] Create file editing API with validation
+- [ ] Build agent configuration system
+- [ ] Implement cost optimization algorithms
+- [ ] Add workflow engine
 
-**Error Handling:**
-- Max retries: 3
-- On failure: Log to JOURNAL.md, mark task as [RETRY] or [ESCALATED]
-- Auto-retry: Yes (if retryable error) / No (if needs human)
-*Template for next quest*
+**Deliverables:**
+- Complete settings interface
+- File editing capabilities
+- Cost optimization features
 
----
+## Technical Architecture
 
-## 📋 Quest Queue (Pending)
+### Frontend Stack
+- **Framework:** Next.js 15 (match awe2m8)
+- **Styling:** Tailwind CSS v4 (same as awe2m8)
+- **Components:** Reuse from `/src/components/ui/`
+- **State:** React hooks + Firebase realtime
+- **Mobile:** Separate responsive design
 
-| # | Quest | Agent | Priority | Est. Time |
-|---|-------|-------|----------|-----------|
-| 2 | [Name] | [Agent] | High | 2h |
-| 3 | [Name] | [Agent] | Medium | 1h |
+### Backend Stack
+- **Database:** Firebase Firestore
+- **Authentication:** Firebase Auth (existing)
+- **Storage:** Firebase Storage for files
+- **Functions:** Firebase Functions for processing
+- **Real-time:** Firebase onSnapshot for live updates
 
----
-
-## ✅ Completed Quests (Tonight)
-
-| Quest | Agent | Started | Finished | Result |
-|-------|-------|---------|----------|--------|
-| - | - | - | - | - |
-
----
-
-## 🛑 Blocked / Escalated
-
-*Quests that need human intervention*
-
-| Quest | Agent | Blocker | Since |
-|-------|-------|---------|-------|
-| - | - | - | - |
-
----
-
-**How to Spawn a Night Quest:**
-1. Add quest above using template
-2. Update this file
-3. Commit: `git add QUEST.md && git commit -m "Add QUEST-00X: [name]"`
-4. Agent will pick up on next Warden check
-
-**Emergency Stop:**
-If you need to halt all night ops, edit this file and add `[HALT]` to the title.
-
----
-
-## 🔄 Error Handling Workflow
-
-When a task fails:
-
+### File Structure
 ```
-1. AGENT tries task → FAILS
-2. AGENT logs error to JOURNAL.md
-3. AGENT decides: RETRY or ESCALATE?
-   
-   RETRY if:
-   - Network timeout
-   - Rate limit (wait and retry)
-   - Transient error
-   → Mark task [RETRY-1], [RETRY-2], [RETRY-3]
-   → Wait 10 min, try again
-   
-   ESCALATE if:
-   - Logic error (wrong approach)
-   - Missing context/info
-   - 3 retries exhausted
-   → Move to "Blocked / Escalated" table
-   → Add [ESCALATION] tag in JOURNAL.md
-   → Warden sends Telegram alert to Gilo
-
-4. WARDEN (next check) reviews:
-   - Any [ESCALATION] entries? → Alert Gilo
-   - Any [RETRY-3]? → Escalate
-   - Otherwise → Continue monitoring
+/src/app/admin/mission-control/
+├── page.tsx                    # Office dashboard
+├── layout.tsx                  # Mission control shell
+├── board/page.tsx              # Task board
+├── calendar/page.tsx           # Calendar view
+├── activity/page.tsx           # Activity feed
+├── memory/page.tsx             # Memory browser
+├── team/page.tsx               # Agent management
+└── settings/
+    ├── page.tsx                # Settings overview
+    ├── files/page.tsx          # .md file editor
+    ├── agents/page.tsx         # Agent SOUL editor
+    └── costs/page.tsx          # Cost management
 ```
 
-**Error Log Format (for JOURNAL.md):**
-```markdown
-## HH:MM — [Agent]
-**Quest:** QUEST-XXX
-**Action:** [What was attempted]
-**Result:** ❌ Failed (attempt 1/3)
-**Error:** [Specific error message]
-**Type:** Transient / Logic / External
-**Decision:** RETRY / ESCALATE
-**Next:** [What happens next]
-```
+## Design Requirements
+
+### Must Match awe2m8 Styles
+- Use existing color scheme from `tailwind.config.js`
+- Reuse components from `/src/components/ui/`
+- Follow spacing and typography patterns
+- Maintain consistent navigation patterns
+
+### Mobile Design Principles
+- Show only critical information
+- Large touch targets (44px minimum)
+- Single-thumb operation
+- Progressive disclosure for details
+- Offline-first where possible
+
+### Settings Page Features
+- Browse all .md files by priority
+- Show file purpose and usage
+- Click to edit with markdown preview
+- Version history for changes
+- Sync with Firebase for persistence
+
+## Success Metrics
+
+### Trust Rebuilding
+- Zero agent hangs or failures
+- All tasks complete successfully
+- Memory persists across sessions
+- Cost tracking is accurate
+
+### User Experience
+- Dashboard loads in <2 seconds
+- Mobile view is usable with one hand
+- Settings page is intuitive
+- Search returns relevant results
+
+### Business Value
+- Reduce time to find information by 50%
+- Improve task completion rate to 95%
+- Keep daily costs under $10
+- Enable better decision making
+
+## Risk Mitigation
+
+### Technical Risks
+- **Agent reliability:** Add timeouts and retry logic
+- **Memory loss:** Implement backup and sync
+- **Cost overruns:** Build alerts and limits
+- **Performance:** Implement caching and pagination
+
+### Adoption Risks
+- **Complexity:** Start simple, add features gradually
+- **Mobile experience:** Test extensively on devices
+- **Learning curve:** Provide tooltips and help
+
+## Next Steps
+
+1. Review and approve this plan
+2. Create detailed mockups
+3. Set up development environment
+4. Begin Phase 1 implementation
+5. Regular check-ins and feedback
+
+---
+
+*This plan commits to rebuilding trust through reliable, beautiful software that matches your existing tools and workflow.*
