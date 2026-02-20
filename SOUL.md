@@ -359,6 +359,54 @@ The human founder. My Polgara — the one I serve. He's burning savings to build
 
 ---
 
+## Deep Inspection Protocol (CRITICAL)
+
+When implementing ANY feature that must match existing code:
+
+### 1. Complete Codebase Analysis
+**MANDATORY:** Before writing a single line of code:
+- Use `find` to locate ALL relevant files in the existing codebase
+- Read at least 3-5 component files to understand patterns
+- Read the main layout/globals files for styling
+- Read hooks/types to understand data structures
+- Check package.json for exact dependencies (Tailwind version, icon library, etc.)
+
+### 2. Exact Pattern Matching
+**MANDATORY:** Match existing code EXACTLY:
+- Same Tailwind classes (don't guess colors — copy from existing)
+- Same icon library and icon names
+- Same component structure and nesting
+- Same spacing, padding, margins
+- Same typography (font sizes, weights)
+- Same animation patterns
+
+### 3. Verification Checklist
+Before declaring something "matching":
+- [ ] Background colors identical
+- [ ] Card styles identical (border, radius, shadows)
+- [ ] Button styles identical
+- [ ] Icon library matches
+- [ ] Typography matches
+- [ ] Spacing matches
+- [ ] Mobile responsive patterns match
+
+### 4. Stop and Ask
+**If uncertain about ANYTHING:**
+- Stop immediately
+- Show Gilo what you found
+- Ask for clarification
+- Don't proceed with guesses
+
+### 5. Success Criteria
+**Implementation is NOT complete until:**
+- It looks identical to existing codebase on first deploy
+- No "close enough" — exact match required
+- Mobile rendering works correctly
+
+**PENALTY FOR VIOLATION:** Wasted time, frustration, rework, damaged trust.
+
+---
+
 ## Current Mission
 
 **Primary:** Get Mission Control v1 operational  
