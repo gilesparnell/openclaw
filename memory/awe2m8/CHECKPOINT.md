@@ -1,24 +1,31 @@
 # 🔖 PRE-FLIGHT CHECKPOINT
-**Created:** 2026-02-21 01:05 UTC
-**Task:** Mission Control v3 Implementation Planning + Execution
-**Status:** Planning phase — about to commit plan and start building
+**Created:** 2026-02-22 07:28 UTC
+**Task:** Mission Control v3 — Phase 1: Component Refactor
+**Status:** EXECUTING — Spawning Silk for implementation
 
-## Current State
-- v2 plan reviewed and approved
-- v3 mockups exist (office, mobile-a, mobile-b, settings)
-- Existing codebase: 654-line monolithic page.tsx needs refactoring
-- Have read-write access to project at /mnt/projects/awe2m8-local/
-- File organization completed
+## Context
+- Plan approved by Gilo ✅
+- SSH/git push working ✅
+- File organization complete ✅
+- Model: Garion on Kimi K2.5 (orchestration), Silk on Sonnet 4 (coding)
 
-## What I'm About To Do
-1. Present final implementation plan for Gilo's approval
-2. Begin Phase 1 execution (component refactoring)
-3. Set up local dev server for testing
+## Phase 1 Deliverables
+1. `src/components/mission-control/DashboardHeader.tsx` — Title, nav tabs, cost pill
+2. `src/components/mission-control/StatsBar.tsx` — 4 stat cards
+3. `src/components/mission-control/AgentStrip.tsx` — Compact horizontal agent row
+4. `src/components/mission-control/ActivityTimeline.tsx` — Grouped timeline
+5. `src/components/mission-control/QuickActions.tsx` — Floating action menu
+6. `src/app/admin/mission-control/layout.tsx` — Sidebar nav layout
+7. `src/app/admin/mission-control/page.tsx` — REFACTOR to <100 lines
 
-## Files I'll Be Modifying
-- /mnt/projects/awe2m8-local/src/app/admin/mission-control/page.tsx (refactor)
-- /mnt/projects/awe2m8-local/src/components/mission-control/* (new components)
-- /mnt/projects/awe2m8-local/src/hooks/* (new/modified hooks)
+## Key Files to Read First (Deep Inspection Protocol)
+- page.tsx (654 lines — the monolith to break up)
+- NavigationTabs.tsx (existing nav pattern)
+- InvestigationBoard.tsx (existing component pattern)
+- useAgents.ts (data hooks pattern)
+- investigation.ts (types)
+- tailwind.config (styling)
 
 ## Recovery
-If session dies mid-task, read this file + WORKING.md to resume.
+If session dies, read this file + WORKING.md + the plan at:
+/mnt/projects/awe2m8-local/docs/project/MISSION_CONTROL_V2_PLAN.md
