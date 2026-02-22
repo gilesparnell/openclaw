@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garion Mobile - Proposal 1</title>
+    <title>Mission Control - Mobile Proposal 1</title>
     <style>
         * {
             margin: 0;
@@ -15,264 +15,280 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #f5f5f7;
             color: #1d1d1f;
-            line-height: 1.4;
+            line-height: 1.5;
         }
         
+        .container {
+            max-width: 390px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        /* Header - Fixed */
         .header {
-            background: #fff;
-            padding: 12px 16px;
-            border-bottom: 1px solid #e5e5e7;
             position: sticky;
             top: 0;
-            z-index: 10;
+            background: white;
+            border-bottom: 1px solid #e5e5e7;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
         }
         
         .header h1 {
             font-size: 17px;
             font-weight: 600;
-            color: #1d1d1f;
-        }
-        
-        .container {
-            padding: 16px;
-        }
-        
-        .status-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .status-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
         }
         
         .status-badge {
+            background: #34c759;
+            color: white;
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 13px;
             font-weight: 500;
         }
         
-        .status-good {
-            background: #d1fadf;
-            color: #166534;
+        /* Quick Stats - Horizontal Scroll */
+        .quick-stats {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
-        .status-warning {
-            background: #fef3c7;
-            color: #92400e;
+        .stat-card {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 120px;
+            text-align: center;
         }
         
-        .status-bad {
-            background: #fee2e2;
-            color: #991b1b;
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
         
-        .metric-row {
+        .stat-label {
+            font-size: 13px;
+            color: #8e8e93;
+        }
+        
+        /* Active Agents Section */
+        .section {
+            padding: 0 16px 16px;
+        }
+        
+        .section-header {
             display: flex;
             justify-content: space-between;
-            margin: 8px 0;
-            font-size: 15px;
-        }
-        
-        .metric-label {
-            color: #6e6e73;
-        }
-        
-        .metric-value {
-            font-weight: 500;
-        }
-        
-        .agent-list {
-            margin-top: 12px;
-        }
-        
-        .agent-item {
-            display: flex;
             align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 12px;
         }
         
-        .agent-item:last-child {
-            border-bottom: none;
-        }
-        
-        .agent-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #007aff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+        .section-title {
+            font-size: 20px;
             font-weight: 600;
-            margin-right: 12px;
         }
         
-        .agent-info {
-            flex: 1;
-        }
-        
-        .agent-name {
-            font-weight: 500;
+        .see-all {
             font-size: 15px;
+            color: #007aff;
+            text-decoration: none;
+        }
+        
+        .agent-card {
+            background: white;
+            border: 1px solid #e5e5e7;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .agent-info h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
         
         .agent-task {
-            font-size: 13px;
-            color: #6e6e73;
-            margin-top: 2px;
+            font-size: 15px;
+            color: #8e8e93;
         }
         
         .agent-status {
-            font-size: 13px;
-            color: #34c759;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #34c759;
         }
         
-        .quick-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* Cost Alert */
+        .cost-alert {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px;
+            display: flex;
+            align-items: center;
             gap: 12px;
-            margin-top: 16px;
         }
         
-        .action-btn {
-            background: #007aff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
+        .alert-icon {
+            font-size: 24px;
         }
         
-        .nav-bar {
+        .alert-text {
+            flex: 1;
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .alert-desc {
+            font-size: 13px;
+            color: #8e8e93;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 0;
-            right: 0;
-            background: #fff;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 390px;
+            background: white;
             border-top: 1px solid #e5e5e7;
             display: flex;
+            justify-content: space-around;
             padding: 8px 0;
         }
         
         .nav-item {
-            flex: 1;
-            text-align: center;
-            padding: 6px;
-            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            text-decoration: none;
             color: #8e8e93;
+            font-size: 11px;
         }
         
         .nav-item.active {
             color: #007aff;
         }
         
-        .content-with-nav {
+        .nav-icon {
+            font-size: 24px;
+        }
+        
+        /* Content spacing for fixed nav */
+        .content {
             padding-bottom: 80px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🤖 Garion Status</h1>
-    </div>
-    
-    <div class="content-with-nav">
-        <div class="container">
-            <!-- System Health Card -->
-            <div class="status-card">
-                <div class="status-header">
-                    <h2>System Health</h2>
-                    <span class="status-badge status-good">All Good</span>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Mission Control</h1>
+            <div class="status-badge">All Good</div>
+        </header>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-value">$12.40</div>
+                    <div class="stat-label">Today</div>
                 </div>
-                <div class="metric-row">
-                    <span class="metric-label">Uptime</span>
-                    <span class="metric-value">24h 15m</span>
+                <div class="stat-card">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Active</div>
                 </div>
-                <div class="metric-row">
-                    <span class="metric-label">Success Rate</span>
-                    <span class="metric-value">98.5%</span>
-                </div>
-            </div>
-            
-            <!-- Cost Card -->
-            <div class="status-card">
-                <div class="status-header">
-                    <h2>Today's Cost</h2>
-                    <span class="status-badge status-good">$2.40</span>
-                </div>
-                <div class="metric-row">
-                    <span class="metric-label">Budget</span>
-                    <span class="metric-value">$20.00</span>
-                </div>
-                <div class="metric-row">
-                    <span class="metric-label">Remaining</span>
-                    <span class="metric-value">$17.60</span>
+                <div class="stat-card">
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">Success</div>
                 </div>
             </div>
             
-            <!-- Active Agents Card -->
-            <div class="status-card">
-                <div class="status-header">
-                    <h2>Active Agents</h2>
-                    <span class="status-badge status-good">3 Working</span>
-                </div>
-                <div class="agent-list">
-                    <div class="agent-item">
-                        <div class="agent-avatar">S</div>
-                        <div class="agent-info">
-                            <div class="agent-name">Silk</div>
-                            <div class="agent-task">Building dashboard</div>
-                        </div>
-                        <div class="agent-status">45m</div>
-                    </div>
-                    <div class="agent-item">
-                        <div class="agent-avatar">B</div>
-                        <div class="agent-info">
-                            <div class="agent-name">Barak</div>
-                            <div class="agent-task">Researching APIs</div>
-                        </div>
-                        <div class="agent-status">1h 20m</div>
-                    </div>
-                    <div class="agent-item">
-                        <div class="agent-avatar">P</div>
-                        <div class="agent-info">
-                            <div class="agent-name">Polgara</div>
-                            <div class="agent-task">Writing docs</div>
-                        </div>
-                        <div class="agent-status">12m</div>
-                    </div>
+            <!-- Cost Alert -->
+            <div class="cost-alert">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-text">
+                    <div class="alert-title">Daily Budget at 80%</div>
+                    <div class="alert-desc">Consider switching to cheaper models</div>
                 </div>
             </div>
             
-            <!-- Quick Actions -->
-            <div class="status-card">
-                <h2>Quick Actions</h2>
-                <div class="quick-actions">
-                    <button class="action-btn">New Task</button>
-                    <button class="action-btn">View Logs</button>
+            <!-- Active Agents -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Active Now</h2>
+                    <a href="#" class="see-all">See All</a>
                 </div>
-            </div>
+                
+                <div class="agent-card">
+                    <div class="agent-info">
+                        <h3>Barak</h3>
+                        <div class="agent-task">Researching competitor pricing</div>
+                    </div>
+                    <div class="agent-status"></div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-info">
+                        <h3>Silk</h3>
+                        <div class="agent-task">Building API integration</div>
+                    </div>
+                    <div class="agent-status"></div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-info">
+                        <h3>Polgara</h3>
+                        <div class="agent-task">Writing blog post draft</div>
+                    </div>
+                    <div class="agent-status"></div>
+                </div>
+            </section>
         </div>
-    </div>
-    
-    <!-- Bottom Navigation -->
-    <div class="nav-bar">
-        <div class="nav-item active">Status</div>
-        <div class="nav-item">Agents</div>
-        <div class="nav-item">Tasks</div>
-        <div class="nav-item">Settings</div>
+        
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">🤖</span>
+                <span>Agents</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">💰</span>
+                <span>Costs</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </a>
+        </nav>
     </div>
 </body>
 </html>
