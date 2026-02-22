@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control Mobile - Activity Feed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 16px;
+            padding-bottom: 80px;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8e8e93;
+            padding: 4px;
+        }
+        
+        /* Summary Card */
+        .summary-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .summary-item {
+            text-align: center;
+        }
+        
+        .summary-value {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .summary-label {
+            font-size: 12px;
+            color: #8e8e93;
+        }
+        
+        /* Filter Pills */
+        .filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .filter-pill {
+            background: white;
+            border: 1px solid #e5e5ea;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            color: #8e8e93;
+        }
+        
+        .filter-pill.active {
+            background: #007aff;
+            color: white;
+            border-color: #007aff;
+        }
+        
+        /* Activity Timeline */
+        .timeline {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .timeline-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 44px;
+            bottom: 0;
+            width: 2px;
+            background: #f2f2f7;
+        }
+        
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #007aff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 20px;
+            z-index: 1;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-meta {
+            font-size: 13px;
+            color: #8e8e93;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-details {
+            background: #f2f2f7;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .timeline-cost {
+            position: absolute;
+            right: 0;
+            top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #30d158;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+        
+        .status-success {
+            background: #d1f7e5;
+            color: #30d158;
+        }
+        
+        .status-warning {
+            background: #fff3cd;
+            color: #ff9500;
+        }
+        
+        .status-error {
+            background: #ffebee;
+            color: #ff3b30;
+        }
+        
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #f2f2f7;
+            display: flex;
+            padding: 8px 0;
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            color: #8e8e93;
+        }
+        
+        .nav-item.active {
+            color: #007aff;
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Activity</h1>
+            <div class="header-actions">
+                <button class="icon-btn">🔍</button>
+                <button class="icon-btn">⚡</button>
+            </div>
+        </div>
+        
+        <!-- Summary Card -->
+        <div class="summary-card">
+            <div class="summary-item">
+                <div class="summary-value">24</div>
+                <div class="summary-label">Actions Today</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">$8.42</div>
+                <div class="summary-label">Total Cost</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">3</div>
+                <div class="summary-label">Running</div>
+            </div>
+        </div>
+        
+        <!-- Filter Pills -->
+        <div class="filters">
+            <div class="filter-pill active">All Activity</div>
+            <div class="filter-pill">🐻 Barak</div>
+            <div class="filter-pill">🕵️ Silk</div>
+            <div class="filter-pill">🧙 Polgara</div>
+            <div class="filter-pill">⚔️ Garion</div>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="timeline">
+            <div class="timeline-header">Recent Activity</div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">🐻</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Research completed</div>
+                    <div class="timeline-meta">Barak • 2 minutes ago</div>
+                    <div class="timeline-details">
+                        Competitor pricing analysis for voice AI platforms
+                        <div class="status-badge status-success">Success</div>
+                    </div>
+                </div>
+                <div class="timeline-cost">$0.45</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">🕵️</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Deployment successful</div>
+                    <div class="timeline-meta">Silk • 15 minutes ago</div>
+                    <div class="timeline-details">
+                        Updated mockups deployed to Vercel
+                        <div class="status-badge status-success">Success</div>
+                    </div>
+                </div>
+                <div class="timeline-cost">$0.12</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">🧙</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Content written</div>
+                    <div class="timeline-meta">Polgara • 1 hour ago</div>
+                    <div class="timeline-details">
+                        Blog post draft completed for product launch
+                        <div class="status-badge status-success">Success</div>
+                    </div>
+                </div>
+                <div class="timeline-cost">$0.23</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">⚔️</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Agent coordination</div>
+                    <div class="timeline-meta">Garion • 2 hours ago</div>
+                    <div class="timeline-details">
+                        Assigned new quest to Silk for Mission Control v2
+                        <div class="status-badge status-warning">In Progress</div>
+                    </div>
+                </div>
+                <div class="timeline-cost">$0.08</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">📊</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Daily report generated</div>
+                    <div class="timeline-meta">System • 3 hours ago</div>
+                    <div class="timeline-details">
+                        Yesterday's activity summary sent via Telegram
+                        <div class="status-badge status-success">Complete</div>
+                    </div>
+                </div>
+                <div class="timeline-cost">$0.02</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <div class="nav-item">
+            <div class="nav-icon">📊</div>
+            <div>Status</div>
+        </div>
+        <div class="nav-item active">
+            <div class="nav-icon">📋</div>
+            <div>Activity</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">🤖</div>
+            <div>Agents</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">⚙️</div>
+            <div>Settings</div>
+        </div>
+    </div>
+</body>
+</html>
