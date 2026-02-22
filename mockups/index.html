@@ -3,76 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission Control Mobile - Proposals</title>
+    <title>Garion Mobile Proposals</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
             background: #f5f5f7;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
             color: #1d1d1f;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6e6e73;
+            margin-bottom: 40px;
+            font-size: 17px;
+        }
+        
         .proposal-card {
-            background: white;
+            background: #fff;
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
+        
+        .proposal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
         .proposal-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
+        
         .proposal-desc {
-            color: #8e8e93;
-            margin-bottom: 20px;
+            color: #6e6e73;
+            font-size: 15px;
             line-height: 1.5;
         }
-        .proposal-link {
-            display: inline-block;
-            background: #007aff;
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
+        
+        .proposal-features {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .feature-tag {
+            background: #f0f9ff;
+            color: #007aff;
+            padding: 4px 10px;
             border-radius: 12px;
+            font-size: 13px;
             font-weight: 500;
         }
-        .note {
+        
+        .view-hint {
             text-align: center;
             color: #8e8e93;
-            font-size: 14px;
-            margin-top: 40px;
+            font-size: 13px;
+            margin-top: 32px;
         }
     </style>
 </head>
 <body>
-    <h1>📱 Mission Control Mobile Proposals</h1>
+    <h1>📱 Garion Mobile Proposals</h1>
+    <p class="subtitle">Two approaches for mobile-first Mission Control</p>
     
-    <div class="proposal-card">
-        <div class="proposal-title">Proposal 1: Status Card</div>
+    <a href="mobile-proposal-1.html" class="proposal-card">
+        <div class="proposal-title">Proposal 1: Card-Based Dashboard</div>
         <div class="proposal-desc">
-            Quick status overview with key metrics. Tap to see activity feed.
-            Designed for "Is everything OK?" checks.
+            Clean card layout with status badges and quick metrics. Perfect for quick glances and understanding system health at a glance.
         </div>
-        <a href="mobile-status-card.html" class="proposal-link">View Status Card</a>
-    </div>
+        <div class="proposal-features">
+            <span class="feature-tag">Status Cards</span>
+            <span class="feature-tag">Quick Metrics</span>
+            <span class="feature-tag">Bottom Nav</span>
+            <span class="feature-tag">Clean UI</span>
+        </div>
+    </a>
     
-    <div class="proposal-card">
+    <a href="mobile-proposal-2.html" class="proposal-card">
         <div class="proposal-title">Proposal 2: Activity Feed</div>
         <div class="proposal-desc">
-            Timeline of all agent activities with filters. 
-            Designed for "What's happening?" deep dives.
+            Timeline-based feed showing recent activity and alerts first. Great for staying updated on what's happening right now.
         </div>
-        <a href="mobile-activity-feed.html" class="proposal-link">View Activity Feed</a>
-    </div>
+        <div class="proposal-features">
+            <span class="feature-tag">Timeline Feed</span>
+            <span class="feature-tag">Swipe Actions</span>
+            <span class="feature-tag">Floating Actions</span>
+            <span class="feature-tag">Real-time Updates</span>
+        </div>
+    </a>
     
-    <p class="note">Open on your phone to test the mobile experience</p>
+    <p class="view-hint">Tap a proposal to view on mobile. Best experienced on your phone.</p>
 </body>
 </html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garion Mobile - Proposal 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.4;
+        }
+        
+        .header {
+            background: #fff;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e5e7;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .header h1 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+        
+        .container {
+            padding: 16px;
+        }
+        
+        .status-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .status-good {
+            background: #d1fadf;
+            color: #166534;
+        }
+        
+        .status-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 15px;
+        }
+        
+        .metric-label {
+            color: #6e6e73;
+        }
+        
+        .metric-value {
+            font-weight: 500;
+        }
+        
+        .agent-list {
+            margin-top: 12px;
+        }
+        
+        .agent-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .agent-item:last-child {
+            border-bottom: none;
+        }
+        
+        .agent-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #007aff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .agent-info {
+            flex: 1;
+        }
+        
+        .agent-name {
+            font-weight: 500;
+            font-size: 15px;
+        }
+        
+        .agent-task {
+            font-size: 13px;
+            color: #6e6e73;
+            margin-top: 2px;
+        }
+        
+        .agent-status {
+            font-size: 13px;
+            color: #34c759;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .action-btn {
+            background: #007aff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #e5e5e7;
+            display: flex;
+            padding: 8px 0;
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 6px;
+            font-size: 12px;
+            color: #8e8e93;
+        }
+        
+        .nav-item.active {
+            color: #007aff;
+        }
+        
+        .content-with-nav {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Garion Status</h1>
+    </div>
+    
+    <div class="content-with-nav">
+        <div class="container">
+            <!-- System Health Card -->
+            <div class="status-card">
+                <div class="status-header">
+                    <h2>System Health</h2>
+                    <span class="status-badge status-good">All Good</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Uptime</span>
+                    <span class="metric-value">24h 15m</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Success Rate</span>
+                    <span class="metric-value">98.5%</span>
+                </div>
+            </div>
+            
+            <!-- Cost Card -->
+            <div class="status-card">
+                <div class="status-header">
+                    <h2>Today's Cost</h2>
+                    <span class="status-badge status-good">$2.40</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Budget</span>
+                    <span class="metric-value">$20.00</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Remaining</span>
+                    <span class="metric-value">$17.60</span>
+                </div>
+            </div>
+            
+            <!-- Active Agents Card -->
+            <div class="status-card">
+                <div class="status-header">
+                    <h2>Active Agents</h2>
+                    <span class="status-badge status-good">3 Working</span>
+                </div>
+                <div class="agent-list">
+                    <div class="agent-item">
+                        <div class="agent-avatar">S</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Silk</div>
+                            <div class="agent-task">Building dashboard</div>
+                        </div>
+                        <div class="agent-status">45m</div>
+                    </div>
+                    <div class="agent-item">
+                        <div class="agent-avatar">B</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Barak</div>
+                            <div class="agent-task">Researching APIs</div>
+                        </div>
+                        <div class="agent-status">1h 20m</div>
+                    </div>
+                    <div class="agent-item">
+                        <div class="agent-avatar">P</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Polgara</div>
+                            <div class="agent-task">Writing docs</div>
+                        </div>
+                        <div class="agent-status">12m</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="status-card">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <button class="action-btn">New Task</button>
+                    <button class="action-btn">View Logs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="nav-bar">
+        <div class="nav-item active">Status</div>
+        <div class="nav-item">Agents</div>
+        <div class="nav-item">Tasks</div>
+        <div class="nav-item">Settings</div>
+    </div>
+</body>
+</html>
