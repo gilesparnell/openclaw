@@ -45,6 +45,88 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - When you make a mistake → document it so future-you doesn't repeat it
 - **Text > Brain** 📝
 
+## Sub-Agent Spawning Protocol
+
+### The "One Writer" Rule (Prevents 20% of issues)
+- Each task file gets EXACTLY ONE agent writer
+- Garion coordinates who writes where via UUID-based files
+- Agents append to logs, never overwrite
+- Output files are write-once, read-many
+
+### For Task X:
+
+1. **Identify Agent A** (e.g., if "research" in task → Barak)
+   - Code/implementation → Silk
+   - Research/data → Barak  
+   - Content/writing → Polgara
+   - UX/strategy → Ce'Nedra
+   - Growth/marketing → Relg
+   - Analytics → Taiba
+   - QA/oversight → Beldin (for review)
+
+2. **Create Task File**
+   Write to `/shared/tasks/{uuid}.md` with:
+   - Objective
+   - Context
+   - Success criteria
+   - Output location
+
+3. **Spawn Session**
+   ```bash
+   # Using OpenClaw CLI
+   openclaw sessions spawn {agent-id} "Task: {details}" --label {task-label}
+   
+   # Or via API/tool
+   sessions_spawn(task="details", agentId="{agent}", label="{label}", cleanup="keep")
+   ```
+   
+   Example:
+   ```bash
+   openclaw sessions spawn barak "Research voice AI pricing for Vapi, Bland AI, Retell" --label voice-pricing-research
+   ```
+
+4. **Monitor Progress**
+   ```bash
+   # Check status every 5 minutes
+   openclaw sessions_history {session-key} --limit 10
+   
+   # Or via tool
+   sessions_history(sessionKey="{key}", limit=10)
+   ```
+   
+   - If stuck >30 mins, nudge via message or reassign
+   - Check `/shared/outputs/{uuid}.md` for early results
+
+5. **On Completion**
+   - Read output from `/shared/outputs/{uuid}.md`
+   - Synthesize findings
+   - Review with Beldin (Cynical CEO) for quality check
+   - Present final results to user
+
+### Cost Tracking & Optimization
+- **Default to cheap models**: Kimi K2.5 for most tasks (saves 70% vs sonnet)
+- **Cap concurrent agents**: Max 4-6 active at once, use serial spawning
+- **Track every spawn**: agent, task, tokens used → log to MEMORY.md
+- **Aim for 95% delegation success rate**
+
+### Monitoring Commands
+```bash
+# List active subagents
+openclaw subagents list
+
+# Check recent sessions
+openclaw sessions_list --recent 30m
+
+# Get session status
+openclaw session_status {session-key}
+```
+
+### Troubleshooting
+- **File conflicts**: Check `/shared/` permissions, use UUID filenames
+- **Slow delegation**: Too many agents? Kill stuck ones
+- **High costs**: Switch to Kimi models, batch tasks
+- **API failures**: Test with `openclaw test model or-opus`
+
 ## Safety
 
 - Don't exfiltrate private data. Ever.

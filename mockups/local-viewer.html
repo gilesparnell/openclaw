@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Garion Mobile Mockups - Local Viewer</title>
+  <style>
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 20px; 
+      background: #f5f5f7;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #6e6e73;
+      font-size: 18px;
+    }
+    iframe { 
+      width: 375px; 
+      height: 812px; 
+      border: 1px solid #d1d1d6; 
+      border-radius: 20px; 
+      margin: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      background: white;
+    }
+    .container { 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: center;
+      gap: 20px;
+    }
+    .mockup { 
+      text-align: center; 
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    h2 { 
+      font-size: 20px; 
+      margin-bottom: 15px; 
+      font-weight: 500;
+    }
+    .links {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .links a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 20px;
+      background: #007aff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+    .links a:hover {
+      background: #0051d5;
+    }
+    .deploy-instructions {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .deploy-instructions h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    .deploy-instructions ol {
+      text-align: left;
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+    .deploy-instructions li {
+      margin-bottom: 10px;
+    }
+    .file-list {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-family: monospace;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📱 Garion Mobile Mockups</h1>
+    <p class="subtitle">Two mobile-first design proposals for Mission Control</p>
+  </div>
+  
+  <div class="links">
+    <a href="./mobile-proposal-1.html" target="_blank">View Proposal 1</a>
+    <a href="./mobile-proposal-2.html" target="_blank">View Proposal 2</a>
+  </div>
+  
+  <div class="container">
+    <div class="mockup">
+      <h2>Proposal 1: Card-Based Dashboard</h2>
+      <iframe src="./mobile-proposal-1.html"></iframe>
+    </div>
+    <div class="mockup">
+      <h2>Proposal 2: Activity Feed</h2>
+      <iframe src="./mobile-proposal-2.html"></iframe>
+    </div>
+  </div>
+  
+  <div class="deploy-instructions">
+    <h3>📋 To Deploy to Vercel:</h3>
+    <ol>
+      <li>Go to <a href="https://vercel.com" target="_blank">vercel.com</a></li>
+      <li>Click "New Project"</li>
+      <li>Choose "Upload" or drag and drop these files:</li>
+      <div class="file-list">
+        index.html<br>
+        mobile-proposal-1.html<br>
+        mobile-proposal-2.html<br>
+        vercel.json
+      </div>
+      <li>Click "Deploy"</li>
+      <li>Share the URL to view on mobile!</li>
+    </ol>
+  </div>
+</body>
+</html>

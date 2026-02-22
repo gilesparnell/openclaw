@@ -2,7 +2,7 @@
 
 *What we're actively working on right now*
 
-**Last Updated:** 2026-02-20 04:36  
+**Last Updated:** 2026-02-22 11:52 UTC
 **Current Goal:** $10k MRR by May 2026
 
 ---
@@ -10,9 +10,11 @@
 ## 🎯 Active Priorities
 
 ### P0: awe2m8 Core
-- [ ] Mission Control build
-- [ ] Customer code improvements
-- [ ] AllConvos platform enhancements
+- [x] **Mobile Mockups Complete** ✅ (2026-02-22)
+  - Status Card design - single view with key metrics
+  - Activity Feed design - timeline with filters
+  - Both saved to `/home/node/.openclaw/workspace/mockups/`
+  - Next: Await mobile testing feedback from Gilo
 
 ### P1: Infrastructure & Automation  
 - [x] Telegram integration (✅ Done)
@@ -26,19 +28,32 @@
 
 ---
 
-## 🤖 Recent System Changes
+## 📱 Mobile Design Decisions (2026-02-22)
 
-| Date | Change | Status |
-|------|--------|--------|
-| 2026-02-20 | Telegram @belgaraid_bot connected | ✅ Live |
-| 2026-02-20 | Daily digest moved to 07:05 | ✅ Scheduled |
-| 2026-02-20 | Night Ops system created | ✅ Ready |
-| 2026-02-20 | Model routing: Opus main, Moonshot subs | ✅ Active |
+**Problem:** Desktop mockups were "super super busy" on mobile
+**Solution:** Two dedicated mobile-first designs
+
+### Proposal 1: Status Card
+- Single card showing system health
+- 4 metrics: Active Agents, Today's Spend, Running Tasks, Alerts
+- Hidden activity feed (toggle to show)
+- Bottom navigation
+
+### Proposal 2: Activity Feed  
+- Timeline of agent activities
+- Filter pills by agent type
+- Summary stats at top
+- Status badges for each action
+
+**Key Principles:**
+- Mobile-first (not responsive desktop)
+- Minimal data density
+- Native app feel
+- Touch-friendly targets
 
 ---
 
 ## 🌙 Tonight's Test
-
 **Quest to add before sleep:**
 - [ ] Define first night ops quest in QUEST.md
 - [ ] Commit and push
@@ -49,12 +64,12 @@
 ---
 
 ## 📋 Backlog (Not Started)
-
+- Await mobile feedback before proceeding
 - awe2m8 website copy review
 - Competitor pricing deep dive
 - Customer onboarding flow
-- Mission Control UI specs
+- Mission Control UI specs (pending mobile decision)
 
 ---
 
-*"Focus is saying no to 1,000 good ideas."* — Steve Jobs
+**Next Immediate Action:** Wait for Gilo's mobile testing feedback on the two proposals

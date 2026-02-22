@@ -1,6 +1,50 @@
 # WORKING.md — Current Tasks
 
-Last updated: 2026-02-18 00:15
+Last updated: 2026-02-21 00:12
+
+---
+
+## 🗂️ FILE ORGANIZATION STRUCTURE (CRITICAL)
+
+**Last reorganized:** 2026-02-21
+
+### My Brain (`~/.openclaw/workspace/`)
+```
+memory/
+├── _daily/              # Session logs (YYYY-MM-DD.md)
+├── _general/            # Cross-cutting brain context
+│   ├── WORKING.md       # This file — current tasks
+│   └── AGENT_MODEL_STRATEGY.md
+├── awe2m8/              # awe2m8 project context
+├── rugby/               # Rugby-related
+│   └── rugby-calendar-2026.md
+└── ops/                 # System/security
+    └── security-hardening-2026-02-02.md
+
+SOUL.md, USER.md, AGENTS.md, HEARTBEAT.md  # Core identity (root)
+```
+
+### Project Work (`/mnt/projects/awe2m8-local/`)
+```
+awe2m8-local/  # Git repo → github.com/gilesparnell/awe2m8
+├── src/                    # Production code
+├── docs/
+│   └── project/
+│       ├── MISSION_CONTROL_V2_PLAN.md
+│       └── awe2m8_implementation_plan.md
+├── mockups/                # All UI mockups
+│   ├── mission-control-v2-*.html
+│   ├── mission-control-v3-*.html
+│   └── index.html
+└── .git/
+```
+
+### Other Mounts
+- `/mnt/documents/` — Your Documents (read-only)
+- `/mnt/downloads/` — Downloads (read-only)
+- `/mnt/ssh/` — SSH keys (read-only)
+
+**Rule:** New projects get their own folder in `memory/`. Daily journals go to `_daily/`. Cross-cutting stuff to `_general/`.
 
 ---
 
