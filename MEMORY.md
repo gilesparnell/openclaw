@@ -1,10 +1,25 @@
 # MEMORY.md — Garion's Long-Term Memory
 
-*Last updated: 2026-02-24*
+*Last updated: 2026-02-24 (Memory Maintenance)*
 
 ---
 
 ## 🧠 Key Learnings
+
+### Agent Model Strategy (CRITICAL — Feb 20)
+**Cost-optimized model assignments committed:**
+| Agent | Default | Escalate | Fallback |
+|-------|---------|----------|----------|
+| Garion | or-sonnet | or-opus (critical only) | Kimi K2.5 |
+| Silk | or-sonnet | — | Kimi K2.5 |
+| Barak | Kimi K2.5 | or-sonnet (synthesis) | — |
+| Polgara | Kimi K2.5 | — | or-mini (short drafts) |
+| Ce'Nedra | or-sonnet | — | Kimi K2.5 |
+| Beldin | Kimi K2.5 | or-sonnet (tricky bugs) | — |
+| Taiba | Kimi K2.5 | or-sonnet (interpretation) | — |
+
+**Target:** $12/day average (~$360/month)
+**Rule:** Start cheap, escalate only when quality truly matters
 
 ### Silk Agent Management
 - Silk on Kimi K2.5 = unreliable (timeouts, sloppy code, placeholder imports)
@@ -38,6 +53,13 @@
 - This causes re-renders that wipe other component state (like cost data)
 - **Fix:** Replace all client Firestore reads with API routes using Admin SDK
 
+### Mobile Design Philosophy (Feb 20)
+**Key insight from Gilo:** Desktop mockups were "super super busy on mobile"
+**Decision:** Mobile needs a **completely separate view**, not responsive desktop
+**Mobile purpose:** Quick status check, critical alerts, owner actions
+**Pattern:** Minimalist, purpose-built, subset of critical data only
+**Status:** Two mobile proposals requested, not yet built
+
 ---
 
 ## 📊 Financial Status
@@ -66,10 +88,15 @@
 - /api/seed-activities — Test data seeder
 
 ### Still Needed:
-- Mobile responsive design
+- **Mobile views** — Two proposals requested (Feb 20), not yet built
 - Working spawn buttons
 - Real activity logging (auto-log when agents actually run)
 - Firebase rules deployment (need CLI auth)
+
+### Design Decisions (Feb 20)
+- **Desktop:** Feature-rich dashboard with overlays for density
+- **Mobile:** Separate minimal view — "what an owner needs on their phone"
+- **Settings:** File browser for .md files with priority indicators, inline editing
 
 ---
 
@@ -81,6 +108,16 @@
 - Wants me to think through problems and ask agents for help rather than escalating to him
 - Loves when things actually work and show real data
 - Late night worker — active until 1am+ AEDT
+- **Design feedback:** Desktop mockups "look amazing" but mobile was "super super busy" — wants minimal, purpose-built mobile views
+
+## ⚠️ NEW OPERATING PROTOCOL (Feb 24)
+
+**CRITICAL:** I AM THE MANAGER, NOT THE DOER
+- **NO MORE CODING** - That's Silk/Durnik/Taiba's job
+- **NO MORE IMPLEMENTING** - I orchestrate, they execute  
+- **MANAGE, DON'T DO** - Or Gilo will cut me off
+- **Three-agent dev team:** Silk + Durnik + Taiba (all on Sonnet 4)
+- **Follow Beldin's warnings:** No mega-tasks, 4h checkpoints, kill stuck work
 
 ---
 
@@ -97,6 +134,62 @@
 - Must be kept in sync with openclaw.json config
 - Strategy was documented Feb 20 but not applied until Feb 23
 
+### File Organization (Feb 21)
+**New structure implemented:**
+```
+memory/
+├── _daily/              # Session logs
+├── _general/            # Cross-cutting brain context
+│   ├── WORKING.md
+│   ├── AGENT_MODEL_STRATEGY.md
+│   └── DECISIONS.md
+├── awe2m8/              # awe2m8 project context
+├── rugby/               # Rugby calendar
+└── ops/                 # System/security
+```
+**Rule:** New projects get their own folder. Daily journals to `_daily/`. Cross-cutting to `_general/`.
+
+## 📋 Recent Decisions & Lessons (Feb 20-24)
+
+### Feb 20 — Mission Control Design Direction
+**Decision:** Build "Option A" — beautiful dashboard (not cognitive prosthetic)
+**Context:** Gilo's faith in OpenClaw was "battered" due to lost memory and hanging agents
+**Rationale:** Tangible, visible progress rebuilds trust; "Option B" requires trust in invisible systems
+**Commitments made:**
+1. Commit plan to memory
+2. Build beautiful dashboard (Option A)
+3. Create fine-grained implementation plan for QUEST.md
+4. Build mockups using awe2m8 styles
+5. Create styled settings page for .md file management
+
+### Feb 20 — Mobile Design Philosophy
+**Decision:** Mobile = completely separate view, not responsive desktop
+**Feedback:** Desktop mockups "look amazing" but mobile was "super super busy"
+**Requirements:**
+- Minimalist design
+- Show only critical data/status
+- Purpose-built for owner actions
+- Two proposals to be built and deployed
+
+### Feb 21 — File Organization Restructure
+**Decision:** Reorganize memory into project-specific folders
+**Rationale:** Clear folder structure aligns with Gilo's values; easier context discovery
+**Implementation:** `_daily/`, `_general/`, `awe2m8/`, `rugby/`, `ops/`
+
+### Feb 21 — Mount Points & Git Access
+**Decisions:**
+- Garion gets read-write to `/mnt/projects/awe2m8-local/`
+- Read-only to Documents, Downloads, SSH keys
+- Project docs live in repo (`docs/project/`)
+- Brain context stays in `memory/_general/`
+**Rationale:** Fast workflow with appropriate guardrails
+
+### Process Improvements Identified
+1. **Pre-flight checkpoints:** Add checkpoint before risky operations (from Ziggy's system)
+2. **Decision extraction:** Capture rationale at decision time, not after
+3. **Small chunks:** Write in small chunks to avoid hangs
+4. **Deploy early:** Vercel deployment for mobile testing before building
+
 ---
 
-*This file is my curated memory. Daily logs go in memory/YYYY-MM-DD.md.*
+*This file is my curated memory. Daily logs go in memory/_daily/YYYY-MM-DD.md*
