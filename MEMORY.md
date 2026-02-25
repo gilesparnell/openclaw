@@ -1,6 +1,6 @@
 # MEMORY.md — Garion's Long-Term Memory
 
-*Last updated: 2026-02-24 (Memory Maintenance)*
+*Last updated: 2026-02-25 (Learning Summary)*
 
 ---
 
@@ -149,7 +149,25 @@ memory/
 ```
 **Rule:** New projects get their own folder. Daily journals to `_daily/`. Cross-cutting to `_general/`.
 
-## 📋 Recent Decisions & Lessons (Feb 20-24)
+## 📋 Recent Decisions & Lessons (Feb 20-25)
+
+### Feb 25 — Investor Pitch Preparation
+**Decision:** Position awe2m8 around AI agent workforce capability for SaaS development
+**Context:** Investor meeting scheduled, need compelling value proposition
+**Key Points:** Speed-to-market (23% faster), capital efficiency (5-10x ROI), infinite scalability, competitive moats, proven execution
+**Outcome:** Research synthesized into 5 investor-ready value propositions
+**Next:** Follow up on meeting outcome, activate agent squad to demonstrate capability
+
+### Feb 25 — Critical Gap Identified (Beldin Oversight)
+**Finding:** Agent squad is dormant — 10 agents idle with no active tasks
+**Root cause:** QUEST.md deleted, no work distribution mechanism
+**Risk:** Burning savings while AI workforce sits unused
+**Action needed:** Restore quest system, assign revenue-focused tasks immediately
+
+### Feb 25 — Morning Digest Failure
+**Issue:** Daily morning digest cron job failed to deliver message
+**Status:** Content generated successfully, delivery step failed
+**Action needed:** Investigate messaging service configuration
 
 ### Feb 20 — Mission Control Design Direction
 **Decision:** Build "Option A" — beautiful dashboard (not cognitive prosthetic)
