@@ -1,144 +1,156 @@
 # MEMORY.md — Garion's Long-Term Memory
 
-*Last updated: 2026-02-25 (Learning Summary)*
+*Last updated: 2026-02-26 (Memory Maintenance)*
 
 ---
 
-## 🧠 Key Learnings
+## 🚨 CRITICAL OPERATING PROTOCOLS
 
-### Agent Model Strategy (CRITICAL — Feb 20)
-**Cost-optimized model assignments committed:**
-| Agent | Default | Escalate | Fallback |
-|-------|---------|----------|----------|
-| Garion | or-sonnet | or-opus (critical only) | Kimi K2.5 |
-| Silk | or-sonnet | — | Kimi K2.5 |
-| Barak | Kimi K2.5 | or-sonnet (synthesis) | — |
-| Polgara | Kimi K2.5 | — | or-mini (short drafts) |
-| Ce'Nedra | or-sonnet | — | Kimi K2.5 |
-| Beldin | Kimi K2.5 | or-sonnet (tricky bugs) | — |
-| Taiba | Kimi K2.5 | or-sonnet (interpretation) | — |
+### Garion Role: MANAGER ONLY (Feb 24 — NON-NEGOTIABLE)
+- **NO CODING** — Silk/Durnik/Taiba handle implementation
+- **NO IMPLEMENTING** — Pure orchestration and quality control
+- **MANAGE, DON'T DO** — Or risk being cut off
+- **Three-agent dev team:** Silk + Durnik + Taiba (all on Sonnet 4)
+
+### Agent Model Strategy (Cost-Optimized)
+| Agent | Default | Escalate | Notes |
+|-------|---------|----------|-------|
+| Garion | or-sonnet | or-opus (critical only) | Strategic work only |
+| Silk | or-sonnet | — | Coding quality critical |
+| Durnik | or-sonnet | — | Backend/infrastructure |
+| Taiba | or-sonnet | — | Analytics/performance |
+| Barak | Kimi K2.5 | or-sonnet (synthesis) | Research |
+| Polgara | Kimi K2.5 | or-mini (short drafts) | Content |
+| Ce'Nedra | or-sonnet | — | UX/strategy |
+| Beldin | Kimi K2.5 | or-sonnet (tricky bugs) | QA/oversight |
+| Relg | Kimi K2.5 | — | Growth/marketing |
+| Errand | Kimi K2.5 | — | Logistics |
+| Mandorallen | Kimi K2.5 | — | Security |
 
 **Target:** $12/day average (~$360/month)
-**Rule:** Start cheap, escalate only when quality truly matters
+**Current:** ~$6/day (under budget)
 
-### Silk Agent Management
-- Silk on Kimi K2.5 = unreliable (timeouts, sloppy code, placeholder imports)
-- Silk on Sonnet = much better quality, delivers clean code
-- **Always** give Silk single tasks with explicit "DO NOT touch" rules for config files
-- **Always** review Silk's output before declaring done — he claims completion with TypeScript errors
-- I (Garion) had to rewrite Silk's Task Board page completely
+---
+
+## 🏗️ Mission Control Status (Feb 26)
+
+### Built & Working:
+1. **Dashboard** — Live cost data, activity feed, agent strip
+2. **Task Board** — Kanban with Firebase CRUD
+3. **Team Page** — 11 agent cards
+4. **Activity Page** — Full feed with filters/search
+5. **Settings Page** — Config display
+
+### Critical Gap: NOT OPERATIONAL
+- **Dashboard built but unused** — Agents don't log real activity
+- **Spawn buttons don't work** — No actual agent spawning
+- **Beldin reports 90% theater** — Only Barak delivered in 4+ days
+- **QUEST.md deleted** — No work distribution mechanism
+
+### Still Blocked (6+ Days Overdue):
+- **Mobile mockups** — Requested Feb 20, two proposals promised, not built
+- **Working spawn buttons** — Infrastructure exists but not wired
+- **Real activity logging** — Auto-log when agents actually run
+
+---
+
+## 💰 Financial Reality Check
+
+### Current State
+- **Revenue:** $399/month (2 customers)
+- **Expenses:** ~$15k/month burn rate
+- **Goal:** $10k MRR by May (~33 days away)
+- **Gap:** Need ~20 more customers OR higher-value deals
+
+### API Spend
+- **OpenRouter:** ~$99 of $120 loaded (~$21 remaining)
+- **Anthropic:** ~$15 manually tracked
+- **Total:** ~$114 over ~2 weeks
+- **Daily avg:** ~$6/day (under $12 target)
+
+### The Problem
+**10 agents idle while burning savings.** Beldin's right — this is 90% theater. Infrastructure built but not activated.
+
+---
+
+## 👤 Gilo Profile (Updated Feb 25)
+
+### Emotional State
+- **Faith "battered"** by reliability issues (agents hanging, memory loss)
+- **Cost-anxious** — burning savings, $15k/month expenses
+- **Urgent but focused** — investor meeting Feb 25, seeking capital
+- **Frustrated by execution gap** — great infrastructure, poor utilization
+
+### Working Style
+- **Visual-first** — Needs mockups before building
+- **Mobile-centric** — Checks everything on phone first
+- **Direct feedback** — "super super busy on mobile" (specific, actionable)
+- **Trusts but verifies** — Wants working demos before commitment
+
+### What He Loves
+- When things actually work and show real data
+- Clean, minimal mobile design
+- Cost visibility and discipline
+- Rapid iteration with visible progress
+
+### What Frustrates Him
+- Costs flashing then disappearing (bug fixed Feb 24)
+- Agents claiming completion with errors
+- "Theater" instead of delivery
+- Missing deadlines (mobile mockups 6 days overdue)
+
+---
+
+## 🎯 Strategic Priorities (Feb 26)
+
+### Immediate (This Week)
+1. **Activate agent squad** — Stop the dormancy, assign revenue tasks
+2. **Build mobile mockups** — Two proposals, deploy to Vercel
+3. **Restore quest system** — Create QUEST.md with revenue-focused tasks
+4. **Fix morning digest** — Cron generates content but fails to deliver
+
+### Short-Term (To May)
+1. **Customer acquisition** — Need ~20 customers in 33 days
+2. **Automated onboarding** — Remove manual GHL provisioning
+3. **Mission Control operational** — Real activity, working spawns
+4. **Metrics dashboard** — Weekly progress toward $10k MRR
+
+### Key Insight
+**The problem isn't technology — it's activation.** We have 10 agents, Mission Control dashboard, cost tracking, automated backups. But the squad is dormant, the dashboard is unused, and we're burning cash on idle capacity.
+
+---
+
+## ⚙️ Technical Patterns (Learned)
 
 ### Tailwind v4 — NON-NEGOTIABLE
-- Project uses Tailwind CSS v4 — Gilo was emphatic about this
-- `@import "tailwindcss"` in globals.css (NOT `@tailwind base/components/utilities`)
-- `@tailwindcss/postcss` in postcss.config.mjs (NOT `tailwindcss`)
-- NO tailwind.config.js needed for v4
-- Silk broke this once — enforce in every task instruction
+- `@import "tailwindcss"` in globals.css
+- `@tailwindcss/postcss` in postcss.config.mjs
+- NO tailwind.config.js needed
+- Silk broke this once — enforce in every task
 
-### Firebase Architecture
-- Project: awe2m8-sales
-- Client SDK hits Firestore security rules (requires auth) — causes permission errors
-- **Always use Admin SDK** (server-side API routes) for reads AND writes
-- Admin SDK bypasses rules — no auth issues
-- Pattern: Create `/api/xxx` route with Admin SDK → client fetches from route
+### Firebase Admin SDK Pattern
+- **Always use Admin SDK** for server-side reads/writes
+- Client SDK hits Firestore rules → permission errors
+- Pattern: `/api/xxx` route with Admin SDK → client fetches
 
-### Cost Tracking
-- OpenRouter: Main provider, has `/api/v1/credits` endpoint for live balance
-- Anthropic: Needs Admin API key (org account only) for usage data — currently manually tracked at $15
-- OpenAI: Usage endpoint needs browser session, not API key
-- OPENROUTER_API_KEY must be in BOTH ~/.openclaw/.env AND awe2m8/.env.local
+### Silk Management
+- **Kimi K2.5 = unreliable** — timeouts, sloppy code, placeholder imports
+- **Sonnet = much better** — delivers clean, working code
+- **Always explicit boundaries** — "DO NOT touch config files"
+- **Always review output** — claims completion with TypeScript errors
 
-### Cost Bug Fix (Critical Pattern)
+### Cost Bug Pattern
 - Components using Firestore client SDK (`onSnapshot`) fail with permission denied
 - This causes re-renders that wipe other component state (like cost data)
-- **Fix:** Replace all client Firestore reads with API routes using Admin SDK
-
-### Mobile Design Philosophy (Feb 20)
-**Key insight from Gilo:** Desktop mockups were "super super busy on mobile"
-**Decision:** Mobile needs a **completely separate view**, not responsive desktop
-**Mobile purpose:** Quick status check, critical alerts, owner actions
-**Pattern:** Minimalist, purpose-built, subset of critical data only
-**Status:** Two mobile proposals requested, not yet built
+- **Fix:** Replace client Firestore with API routes using Admin SDK
 
 ---
 
-## 📊 Financial Status
+## 📁 File Organization
 
-- **OpenRouter:** ~$99 used of $120 loaded (~$21 remaining as of Feb 24)
-- **Anthropic:** ~$15 manually tracked
-- **Total spend:** ~$114 over ~2 weeks
-- **Daily average:** ~$6/day (under $12/day target)
-- **Model strategy:** Garion/Silk/Ce'Nedra on Sonnet, everyone else on Kimi K2.5
-
----
-
-## 🏗️ Mission Control Status (Feb 24)
-
-### Pages Built & Working:
-1. Dashboard — main page with real cost data, activity feed, agent strip
-2. Task Board — Kanban with Firebase CRUD
-3. Team Page — 11 agent cards
-4. Activity Page — full feed with filters/search
-5. Settings Page — config display
-
-### API Routes:
-- /api/activities — Firebase Admin SDK
-- /api/costs — Live OpenRouter balance + Firebase activities + Anthropic manual
-- /api/agents — Agent list with defaults
-- /api/seed-activities — Test data seeder
-
-### Still Needed:
-- **Mobile views** — Two proposals requested (Feb 20), not yet built
-- Working spawn buttons
-- Real activity logging (auto-log when agents actually run)
-- Firebase rules deployment (need CLI auth)
-
-### Design Decisions (Feb 20)
-- **Desktop:** Feature-rich dashboard with overlays for density
-- **Mobile:** Separate minimal view — "what an owner needs on their phone"
-- **Settings:** File browser for .md files with priority indicators, inline editing
-
----
-
-## 👤 Gilo Notes
-
-- Very cost-conscious — wants visibility into every dollar spent
-- Prefers single-task, validated approach over mega-task dumps
-- Gets frustrated when things don't work as expected (costs flashing/disappearing)
-- Wants me to think through problems and ask agents for help rather than escalating to him
-- Loves when things actually work and show real data
-- Late night worker — active until 1am+ AEDT
-- **Design feedback:** Desktop mockups "look amazing" but mobile was "super super busy" — wants minimal, purpose-built mobile views
-
-## ⚠️ NEW OPERATING PROTOCOL (Feb 24)
-
-**CRITICAL:** I AM THE MANAGER, NOT THE DOER
-- **NO MORE CODING** - That's Silk/Durnik/Taiba's job
-- **NO MORE IMPLEMENTING** - I orchestrate, they execute  
-- **MANAGE, DON'T DO** - Or Gilo will cut me off
-- **Three-agent dev team:** Silk + Durnik + Taiba (all on Sonnet 4)
-- **Follow Beldin's warnings:** No mega-tasks, 4h checkpoints, kill stuck work
-
----
-
-## ⚙️ Infrastructure Notes
-
-### OpenClaw Config
-- All 11 agents registered and spawnable
-- Session visibility set to "all" for sub-agent monitoring
-- Telegram: @Belgariad_bot token configured
-- Cron jobs: backup 2x/day, beldin every 6h, warden overnight, morning digest 7:05am
-
-### Agent Model Strategy (AGENT_MODEL_STRATEGY.md)
-- Documented in memory/_general/AGENT_MODEL_STRATEGY.md
-- Must be kept in sync with openclaw.json config
-- Strategy was documented Feb 20 but not applied until Feb 23
-
-### File Organization (Feb 21)
-**New structure implemented:**
 ```
 memory/
-├── _daily/              # Session logs
+├── _daily/              # Session logs (YYYY-MM-DD.md)
 ├── _general/            # Cross-cutting brain context
 │   ├── WORKING.md
 │   ├── AGENT_MODEL_STRATEGY.md
@@ -146,67 +158,33 @@ memory/
 ├── awe2m8/              # awe2m8 project context
 ├── rugby/               # Rugby calendar
 └── ops/                 # System/security
+
+SOUL.md, USER.md, AGENTS.md, HEARTBEAT.md  # Core identity (root)
 ```
-**Rule:** New projects get their own folder. Daily journals to `_daily/`. Cross-cutting to `_general/`.
 
-## 📋 Recent Decisions & Lessons (Feb 20-25)
+---
 
-### Feb 25 — Investor Pitch Preparation
-**Decision:** Position awe2m8 around AI agent workforce capability for SaaS development
-**Context:** Investor meeting scheduled, need compelling value proposition
-**Key Points:** Speed-to-market (23% faster), capital efficiency (5-10x ROI), infinite scalability, competitive moats, proven execution
-**Outcome:** Research synthesized into 5 investor-ready value propositions
-**Next:** Follow up on meeting outcome, activate agent squad to demonstrate capability
+## ✅ Decisions Log
 
-### Feb 25 — Critical Gap Identified (Beldin Oversight)
-**Finding:** Agent squad is dormant — 10 agents idle with no active tasks
-**Root cause:** QUEST.md deleted, no work distribution mechanism
-**Risk:** Burning savings while AI workforce sits unused
-**Action needed:** Restore quest system, assign revenue-focused tasks immediately
+| Date | Decision | Context |
+|------|----------|---------|
+| Feb 20 | Tailwind v4 required | Gilo emphatic about this |
+| Feb 20 | Mobile = separate view | Desktop mockups "too busy" on mobile |
+| Feb 20 | Beautiful dashboard (Option A) | Rebuild trust through visibility |
+| Feb 21 | File restructure | Project folders in memory/ |
+| Feb 24 | Garion = manager only | No coding, pure orchestration |
+| Feb 24 | Three-agent dev team | Silk + Durnik + Taiba on Sonnet 4 |
+| Feb 25 | Investor pitch | AI agent workforce as core value prop |
 
-### Feb 25 — Morning Digest Failure
-**Issue:** Daily morning digest cron job failed to deliver message
-**Status:** Content generated successfully, delivery step failed
-**Action needed:** Investigate messaging service configuration
+---
 
-### Feb 20 — Mission Control Design Direction
-**Decision:** Build "Option A" — beautiful dashboard (not cognitive prosthetic)
-**Context:** Gilo's faith in OpenClaw was "battered" due to lost memory and hanging agents
-**Rationale:** Tangible, visible progress rebuilds trust; "Option B" requires trust in invisible systems
-**Commitments made:**
-1. Commit plan to memory
-2. Build beautiful dashboard (Option A)
-3. Create fine-grained implementation plan for QUEST.md
-4. Build mockups using awe2m8 styles
-5. Create styled settings page for .md file management
+## 🔴 Active Risks
 
-### Feb 20 — Mobile Design Philosophy
-**Decision:** Mobile = completely separate view, not responsive desktop
-**Feedback:** Desktop mockups "look amazing" but mobile was "super super busy"
-**Requirements:**
-- Minimalist design
-- Show only critical data/status
-- Purpose-built for owner actions
-- Two proposals to be built and deployed
-
-### Feb 21 — File Organization Restructure
-**Decision:** Reorganize memory into project-specific folders
-**Rationale:** Clear folder structure aligns with Gilo's values; easier context discovery
-**Implementation:** `_daily/`, `_general/`, `awe2m8/`, `rugby/`, `ops/`
-
-### Feb 21 — Mount Points & Git Access
-**Decisions:**
-- Garion gets read-write to `/mnt/projects/awe2m8-local/`
-- Read-only to Documents, Downloads, SSH keys
-- Project docs live in repo (`docs/project/`)
-- Brain context stays in `memory/_general/`
-**Rationale:** Fast workflow with appropriate guardrails
-
-### Process Improvements Identified
-1. **Pre-flight checkpoints:** Add checkpoint before risky operations (from Ziggy's system)
-2. **Decision extraction:** Capture rationale at decision time, not after
-3. **Small chunks:** Write in small chunks to avoid hangs
-4. **Deploy early:** Vercel deployment for mobile testing before building
+1. **Runway exhaustion** — Burning savings, no new revenue visible
+2. **Agent dormancy** — Paying for 10 agents, using 0
+3. **Execution gap** — Great infrastructure, poor utilization
+4. **Time pressure** — 33 days to 10x revenue
+5. **Morning digest failing** — Cron works, delivery fails
 
 ---
 
