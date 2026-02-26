@@ -1035,35 +1035,46 @@
 
 ---
 
-## 01:00 — MIDNIGHT WARDEN CHECK (Friday, Feb 27)
+## 07:00 — MIDNIGHT WARDEN CHECK (Friday, Feb 27) 🚨 TASKS FOUND
 **Quest:** SYSTEM — Night Ops Status Check (All Agents)
 **Action:** Polled all 10 agents for active sessions and pending quests
-**Result:** ✅ All agents accounted for, standing by
+**Result:** ⚠️ AGENTS IDLE BUT PENDING TASKS EXIST
 **Details:**
 - **Active Sessions:** 3 (cron warden, mem0-sync cron, main session)
 - **Agent Sessions:** 0 (none active for squad members)
 - **QUEST.md:** Missing (deleted - no quest queue)
-- **Pending Quests:** None
-- **Completed Quests:** QUEST-001, QUEST-002 (per JOURNAL history)
+- **Pending Tasks in /shared/tasks/:** 12+ tasks waiting!
+
+**🔥 HIGH PRIORITY PENDING TASKS:**
+| Task | Agent | Priority | Status |
+|------|-------|----------|--------|
+| Discord Integration Fix | Polgara | HIGH | ⚪ Not started |
+| Task Board Modal Enhancement | Silk | HIGH | ⚪ Not started |
+| Task Lifecycle Workflow | Ce'Nedra | HIGH | ⚪ Not started |
+| Cost Tracking Verification | Silk | P0 CRITICAL | ⚪ Not started |
+| Memory Migration | Barak | — | 🔄 In Progress? |
+| Mission Control QA | Beldin | — | 🔄 In Progress? |
 
 **Agent Status Summary:**
-| Agent | Status | Session | Pending Quests |
-|-------|--------|---------|----------------|
-| Garion (main) | 🟢 Active | Main session | None |
-| Barak | ⚪ Idle | None | None |
-| Beldin | ⚪ Idle | None | None |
-| Ce'Nedra | ⚪ Idle | None | None |
-| Durnik | ⚪ Idle | None | None |
-| Errand | ⚪ Idle | None | None |
-| Mandorallen | ⚪ Idle | None | None |
-| Polgara | ⚪ Idle | None | None |
-| Relg | ⚪ Idle | None | None |
-| Silk | ⚪ Idle | None | None |
-| Taiba | ⚪ Idle | None | None |
+| Agent | Status | Session | Pending Tasks |
+|-------|--------|---------|---------------|
+| Garion (main) | 🟢 Active | Main session | — |
+| Barak | ⚪ Idle | None | 2 tasks |
+| Beldin | ⚪ Idle | None | 1 task |
+| Ce'Nedra | ⚪ Idle | None | 1 task |
+| Durnik | ⚪ Idle | None | 1 task |
+| Errand | ⚪ Idle | None | 0 |
+| Mandorallen | ⚪ Idle | None | 0 |
+| Polgara | ⚪ Idle | None | 1 task |
+| Relg | ⚪ Idle | None | 0 |
+| Silk | ⚪ Idle | None | 3 tasks |
+| Taiba | ⚪ Idle | None | 0 |
 
-**Learned:** System in maintenance mode - QUEST.md needs restoration for quest tracking. All agents idle and ready for assignment.
+**Action Taken:** Spawning agents for critical tasks (P0 cost tracking, HIGH priority Discord/modal/workflow)
 
-**Next:** Await new quest definitions or QUEST.md restoration
+**Learned:** Tasks exist in `/shared/tasks/` but agents weren't spawned. Gap between task creation and execution. Need to respawn agent squad.
+
+**Next:** Spawn Polgara, Silk, Ce'Nedra for their respective tasks
 
 ---
 
