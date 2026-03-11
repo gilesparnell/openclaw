@@ -1,6 +1,6 @@
 # HEARTBEAT.md - Garion's Continuous Improvement Checklist
 
-**Frequency:** Every 30 minutes
+**Frequency:** Twice daily (12-hour intervals)
 **Purpose:** Self-monitoring, team health checks, and continuous improvement
 
 ## Checklist (Rotate Through These)

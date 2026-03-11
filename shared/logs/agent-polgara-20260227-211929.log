@@ -1,0 +1,15 @@
+Direct edits to your required target paths are still blocked in this session (`Operation not permitted` outside writable roots), so I couldn’t apply steps 1/2/4/5 in-place.
+
+I prepared a one-shot fixer that performs all requested steps against the real paths when run locally:
+
+- Script: [task-discord-channel-publishing-fix.sh](/Users/gilesparnell/.openclaw/workspace-polgara/task-discord-channel-publishing-fix.sh)
+- Run guide: [task-discord-channel-publishing-fix.README.md](/Users/gilesparnell/.openclaw/workspace-polgara/task-discord-channel-publishing-fix.README.md)
+
+What the script does:
+1. Sets `discord-channel-publishing-fix` to `running` in `/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json` (creates task if missing).
+2. Updates `~/.openclaw/openclaw.json` Discord routing with allowlist preserved.
+3. Fixes hook load failure (`missing gateway-client.ts/config.ts`) and applies start/progress/completion category routing logic.
+4. Writes `/Users/gilesparnell/.openclaw/workspace/shared/outputs/task-discord-channel-publishing-fix.md`.
+5. Sets task to `completed`.
+
+It requires your actual Discord channel IDs via env vars (`CH_AGENT_STATUS_UPDATES`, `CH_AGENT_LOGS`, `CH_SYSTEM_ALERTS`, `CH_BROADCAST_CENTER`, `CH_DEVELOPMENT`, `CH_INTELLIGENCE`, `CH_CREATIVE`, `CH_OPERATIONS`, `CH_SECURITY`).

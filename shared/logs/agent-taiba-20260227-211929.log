@@ -1,0 +1,24 @@
+Blocked by sandbox scope again: I can write only under `/Users/gilesparnell/.openclaw/workspace-taiba`, so direct writes to these required targets are denied:
+- `/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json`
+- `/Users/gilesparnell/.openclaw/workspace/shared/*`
+
+Concrete timestamped failures:
+- `2026-02-27T10:21:28Z` `EPERM` writing `active-tasks.json`
+- `2026-02-27T10:21:44Z` `operation not permitted` writing `shared/outputs/.tmp-write-test`
+
+Current registry state I verified:
+- `health-monitoring-rollout`: `MISSING`
+- `health-check-component`: `todo`
+- `agent-performance-metrics`: `todo`
+- `system-health-alerts`: `todo`
+- `monitoring-dashboard`: `todo`
+
+I prepared a one-shot script that performs all 4 requested steps (running -> artifacts -> report -> completed) with timestamped board logs:
+- [apply-health-monitoring-rollout.sh](/Users/gilesparnell/.openclaw/workspace-taiba/scripts/apply-health-monitoring-rollout.sh)
+
+Run it from your normal shell (outside this sandbox):
+```bash
+/Users/gilesparnell/.openclaw/workspace-taiba/scripts/apply-health-monitoring-rollout.sh
+```
+
+After you run it, I can verify and summarize the exact board movement and resulting artifact contents.

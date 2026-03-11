@@ -1,0 +1,46 @@
+I’m going to follow your workspace startup rules first, then inspect the task file and Discord runtime config to apply the routing fix and produce the report. I’ll begin by loading `SOUL.md`, `USER.md`, and today/yesterday memory notes.
+I found `BOOTSTRAP.md`, so I’ll process that first, then load `SOUL.md`, `USER.md`, and the 2026-02-27/2026-02-26 memory files plus `MEMORY.md` as required for a main session.
+Startup context is loaded; the requested memory files don’t exist yet. Next I’m inspecting the task board and Discord runtime config to patch routing while preserving the allowlist safety controls.
+`rg` isn’t available in this environment, so I’m using `grep/find` to locate existing Discord channel/category mappings and validate how start/progress/completion notifications are currently routed.
+I found the notifier is hard-pinned to a single channel ID right now, which explains the behavior. I’m finishing a targeted search for where your existing channel-category structure is documented so I can map per-category routing correctly.
+One broad filesystem scan is still hanging, so I’m switching to narrow, targeted lookups under `.openclaw`/workspace files to extract the exact channel-category mapping without waiting on the full home-directory search.
+I found task artifacts in `shared/tasks` and a `discord-routing-audit` helper script; I’m reading those now to extract the exact category/channel mapping and expected lifecycle policy before applying config updates.
+I’ve identified the intended logical channels (`agent-status-updates`, `agent-logs`, `broadcast-center`), but not their Discord IDs in runtime config yet. I’m checking local config/intel files for the concrete IDs so routing can be mapped per category.
+I found the intended architecture and routing streams, but still need the actual channel IDs created on your server. I’m now checking generated config artifacts (`.env`, `config/channels.json`, webhook files) for those IDs.
+I found `.openclaw/.env`; it has tokens but no Discord channel ID mapping variables, which confirms routing currently has no per-category channel ID source. I’m checking runtime logs to extract actual channel IDs from resolved/unresolved channel diagnostics.
+I’ve confirmed the current Discord channel is unresolved in gateway logs, so delivery fails before routing logic. I’m now checking OpenClaw’s hook implementation to verify the exact `agent-discord-notifier` config keys for per-event/per-category routing.
+I’m querying the OpenClaw hooks CLI directly to confirm whether `agent-discord-notifier` supports multi-channel routing keys (event/category maps) or only a single `discordChannelId`.
+The hook schema confirms generic mapping support at `hooks.mappings` (`channel` + `to`), while the internal hook entry itself is free-form config. I’m now pulling string-level references for `agent-discord-notifier` in OpenClaw’s dist bundle to infer its accepted fields.
+I found the real root cause: the custom `agent-discord-notifier` hook is failing to load because of a missing module import (`gateway-client.ts`), so no Discord notifications can run at all. I’m inspecting that hook now to produce the exact runtime routing fix and mapping policy.
+I verified the notifier code and can now propose a concrete patch path: either add missing shared hook helpers (`gateway-client.ts`/`config.ts`) or inline those functions directly in `handler.ts`. I’m quickly checking what OpenClaw runtime exports are accessible so the helper import path is stable.
+I couldn’t execute steps 1/2/4/5 because this session is `read-only` (`Operation not permitted` on writes), but I did complete diagnosis and prepared the exact fix plan.
+
+**What I verified**
+1. Task is missing from board file: `hasTask=false` in [active-tasks.json](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json).
+2. Discord notifier is currently single-channel only in [openclaw.json:289](/Users/gilesparnell/.openclaw/openclaw.json:289) and guild allowlist has only one channel in [openclaw.json:316](/Users/gilesparnell/.openclaw/openclaw.json:316).
+3. Hook is failing to load entirely due missing imports in [handler.ts:1](/Users/gilesparnell/.openclaw/hooks/agent-discord-notifier/handler.ts:1):  
+   `Cannot find module '/Users/gilesparnell/.openclaw/hooks/gateway-client.ts'` (seen repeatedly in `/tmp/openclaw/openclaw-2026-02-27.log`).
+4. Discord channel currently configured is unresolved (`discord channels unresolved: 1475129076942635110/1475133040207335525`), so even fallback routing can’t deliver.
+
+**Routing policy to apply (keep allowlist)**
+1. `start` -> `agent-status-updates` + category channel.
+2. `progress` -> category channel only.
+3. `completion(success)` -> `agent-logs` + category channel.
+4. `completion(failure|timeout)` -> `system-alerts` + category channel (+ optional `broadcast-center` for critical).
+
+**Category mapping**
+1. `development` -> `silk-dev`
+2. `intelligence` -> `barak-research` / `taiba-analytics` / `relg-growth`
+3. `creative` -> `polgara-content` / `cenedra-ux`
+4. `operations` -> `durnik-ops` / `beldin-qa`
+5. `security` -> `veldora-security`
+
+**Blockers preventing full completion in this sandbox**
+1. Cannot edit [active-tasks.json](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json), [openclaw.json](/Users/gilesparnell/.openclaw/openclaw.json), or output report path.
+2. No DNS/network access (`curl: Could not resolve host: discord.com`), so I can’t discover/validate live channel IDs.
+
+If you want, I can provide a single ready-to-run patch script for writable mode that:
+1. Adds `discord-channel-publishing-fix` to board (`running` -> `completed`),
+2. Fixes the hook loader/import issue and adds event/category routing config,
+3. Expands Discord guild channel allowlist to all configured channel IDs,
+4. Writes `/Users/gilesparnell/.openclaw/workspace/shared/outputs/task-discord-channel-publishing-fix.md`.

@@ -1,0 +1,455 @@
+{
+  "_meta": {
+    "version": "1.1.0",
+    "createdAt": "2026-02-24T10:44:00Z",
+    "lastUpdated": "2026-02-27T09:24:50.045Z",
+    "description": "Elvis-style agent swarm task registry with materialized TODOs",
+    "todoCount": 9,
+    "materializedBy": "durnik"
+  },
+  "tasks": {
+    "investigate-missing-silk": {
+      "id": "investigate-missing-silk",
+      "agent": "barak",
+      "description": "URGENT: Investigate why Silk session disappeared",
+      "workdir": "/Users/gilesparnell/Documents/VSStudio/awe2m8-local",
+      "branch": "main",
+      "status": "completed",
+      "priority": "CRITICAL",
+      "startedAt": "2026-02-24T16:37:00Z",
+      "completedAt": "2026-02-26T00:46:24Z",
+      "objective": "Forensic analysis of missing agent sessions",
+      "success_criteria": [
+        "✅ Determined agent sessions completed successfully",
+        "✅ Found mobile UX work delivered",
+        "✅ Identified OpenClaw cleanup behavior",
+        "✅ Documented normal session lifecycle"
+      ]
+    },
+    "manual-cost-fix": {
+      "id": "manual-cost-fix",
+      "agent": "silk",
+      "description": "URGENT: Manual cost tracking fix",
+      "workdir": "/Users/gilesparnell/Documents/VSStudio/awe2m8-feat-cost-tracking-fix",
+      "branch": "feat/cost-tracking-fix",
+      "status": "completed",
+      "priority": "CRITICAL",
+      "startedAt": "2026-02-24T16:37:00Z",
+      "completedAt": "2026-02-26T00:45:17Z",
+      "objective": "Fix $0.00 cost display issue immediately",
+      "success_criteria": [
+        "✅ Added cost tracking to activities API",
+        "✅ Updated OpenClaw bridge integration",
+        "✅ Verified dashboard shows real costs",
+        "✅ Fixed Task Registry data synchronization"
+      ]
+    },
+    "fix-spawn-mechanism": {
+      "id": "fix-spawn-mechanism",
+      "agent": "durnik",
+      "description": "URGENT: Fix agent spawn reliability issues",
+      "workdir": "/Users/gilesparnell/Documents/VSStudio/awe2m8-local",
+      "branch": "main",
+      "status": "completed",
+      "priority": "CRITICAL",
+      "startedAt": "2026-02-24T16:37:00Z",
+      "completedAt": "2026-02-26T01:40:00Z",
+      "objective": "Prevent agents from disappearing mid-task",
+      "success_criteria": [
+        "✅ Identified normal OpenClaw agent lifecycle",
+        "✅ Fixed Task Registry data synchronization issues",
+        "✅ Implemented better status tracking",
+        "✅ No actual spawn reliability issues found"
+      ]
+    },
+    "feat-mission-control-adapter": {
+      "id": "feat-mission-control-adapter",
+      "agent": "durnik",
+      "description": "Adapt Mission Control UI to display Elvis-style agent swarm data",
+      "workdir": "/Users/gilesparnell/Documents/VSStudio/awe2m8-feat-mission-control-adapter",
+      "branch": "feat/mission-control-adapter",
+      "tmuxSession": "durnik-mission-control-adapter",
+      "status": "completed",
+      "startedAt": "2026-02-24T11:05:00Z",
+      "completedAt": "2026-02-24T13:23:00Z",
+      "notifyOnComplete": true,
+      "objective": "Transform Mission Control from Firebase theater to real agent swarm monitoring",
+      "deliverables": [
+        "✅ Task registry library (src/lib/task-registry.ts)",
+        "✅ Real-time API routes",
+        "✅ All UI pages adapted (Dashboard, Board, Team, Activity)",
+        "✅ Live polling from .clawbot/active-tasks.json"
+      ],
+      "success_criteria": [
+        "✅ Task Board displays git worktree tasks from active-tasks.json",
+        "✅ Activity Feed shows real agent progress (not Firebase theater)",
+        "✅ Dashboard shows live task registry summary",
+        "✅ Agent Status displays which agents working in which branches",
+        "✅ UI updates in real-time from task registry"
+      ]
+    },
+    "feat-legacy-cleanup": {
+      "id": "feat-legacy-cleanup",
+      "agent": "barak",
+      "description": "Clean up legacy Mission Control theater code",
+      "workdir": "/Users/gilesparnell/Documents/VSStudio/awe2m8-feat-legacy-cleanup",
+      "branch": "feat/legacy-cleanup",
+      "tmuxSession": "barak-legacy-cleanup",
+      "status": "failed",
+      "startedAt": "2026-02-24T11:15:00Z",
+      "failedAt": "2026-02-24T13:30:00Z",
+      "notifyOnComplete": true,
+      "objective": "Remove old Firebase theater code and unused Mission Control components",
+      "failure_reason": "Agent failed after 275k tokens usage",
+      "success_criteria": [
+        "Remove unused Firebase collections (fake tasks, activities)",
+        "Clean up unused API routes and components",
+        "Remove seed data and mock activity generators",
+        "Keep only what Durnik's adapter will use",
+        "Update dependencies and remove unused packages"
+      ]
+    },
+    "mobile-ux-strategy": {
+      "id": "mobile-ux-strategy",
+      "agent": "cenedra",
+      "description": "Design cutting-edge mobile UX for agent swarm monitoring",
+      "status": "completed",
+      "startedAt": "2026-02-24T18:05:00Z",
+      "completedAt": "2026-02-26T00:46:00Z",
+      "objective": "Mobile-first UX for agent monitoring on phone",
+      "priority": "HIGH",
+      "success_criteria": [
+        "✅ Mobile UX delivered by Barak (mobile-ux-completion task)",
+        "✅ 5 user stories and 30 trackable tasks created",
+        "✅ Dashboard, Task Board, Agent Controls, Activity Feed, Settings components",
+        "✅ Mobile-first responsive design implemented"
+      ]
+    },
+    "metrics-observability-strategy": {
+      "id": "metrics-observability-strategy",
+      "agent": "taiba",
+      "description": "Design comprehensive metrics framework for agent swarm observability",
+      "status": "paused",
+      "startedAt": "2026-02-24T18:10:00Z",
+      "pausedAt": "2026-02-26T01:40:00Z",
+      "objective": "Complete observability strategy for agent performance and business impact",
+      "priority": "HIGH",
+      "success_criteria": [
+        "Cost tracking metrics (partially implemented)",
+        "Agent performance monitoring (architecture designed)",
+        "Business impact measurement framework (pending)",
+        "Real-time alerting system (pending)"
+      ]
+    },
+    "health-check-component": {
+      "id": "health-check-component",
+      "agent": "durnik",
+      "description": "Create Health Check Component - Display real-time agent success rates, cost tracking, system status, and warning indicators",
+      "status": "todo",
+      "priority": "HIGH",
+      "category": "health-monitoring",
+      "tags": [
+        "ui",
+        "real-time",
+        "monitoring"
+      ],
+      "acceptance_criteria": [
+        "Real-time agent success rates display",
+        "Live cost tracking indicators",
+        "System status dashboard",
+        "Warning/alert indicators for failures",
+        "Auto-refresh every 5 seconds"
+      ],
+      "estimate": "3 hours",
+      "dependencies": [
+        "task-registry-api"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Build UI component for real-time system health monitoring"
+    },
+    "agent-performance-metrics": {
+      "id": "agent-performance-metrics",
+      "agent": "taiba",
+      "description": "Agent Performance Monitoring Framework - Comprehensive metrics collection for agent execution time, success rates, and resource usage",
+      "status": "todo",
+      "priority": "HIGH",
+      "category": "metrics",
+      "tags": [
+        "observability",
+        "performance",
+        "analytics"
+      ],
+      "acceptance_criteria": [
+        "Agent execution time tracking",
+        "Success/failure rate calculations",
+        "Token usage monitoring per agent",
+        "Cost per task completion metrics",
+        "Historical performance trending"
+      ],
+      "estimate": "5 hours",
+      "dependencies": [
+        "active-tasks-json",
+        "cost-tracking-fix"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Implement comprehensive agent performance analytics"
+    },
+    "troubleshooting-actions": {
+      "id": "troubleshooting-actions",
+      "agent": "durnik",
+      "description": "Troubleshooting Quick Actions - Quick actions for killing stuck agents, running diagnostics, and viewing logs",
+      "status": "todo",
+      "priority": "MEDIUM",
+      "category": "troubleshooting",
+      "tags": [
+        "ui",
+        "diagnostics",
+        "maintenance"
+      ],
+      "acceptance_criteria": [
+        "Kill stuck agent functionality",
+        "Run system diagnostics",
+        "View agent logs interface",
+        "Clear task registry button",
+        "Emergency reset capabilities"
+      ],
+      "estimate": "4 hours",
+      "dependencies": [
+        "health-check-component"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Build diagnostic and maintenance UI tools"
+    },
+    "cost-tracking-accuracy": {
+      "id": "cost-tracking-accuracy",
+      "agent": "durnik",
+      "description": "Cost Tracking Accuracy Monitoring - Automated verification that cost tracking shows real costs, not $0.00",
+      "status": "todo",
+      "priority": "CRITICAL",
+      "category": "cost-monitoring",
+      "tags": [
+        "cost",
+        "validation",
+        "automated-checks"
+      ],
+      "acceptance_criteria": [
+        "Automated cost accuracy tests",
+        "Alert when costs show $0.00",
+        "Daily budget tracking validation",
+        "Cost per API call verification",
+        "Monthly spend reporting"
+      ],
+      "estimate": "3 hours",
+      "dependencies": [
+        "cost-tracking-fix"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Ensure cost tracking accuracy with automated validation"
+    },
+    "system-health-alerts": {
+      "id": "system-health-alerts",
+      "agent": "taiba",
+      "description": "System Health Alerting System - Real-time alerts for agent failures, system issues, and performance degradation",
+      "status": "todo",
+      "priority": "HIGH",
+      "category": "alerting",
+      "tags": [
+        "alerts",
+        "real-time",
+        "notifications"
+      ],
+      "acceptance_criteria": [
+        "Agent failure notifications",
+        "System performance alerts",
+        "Cost budget warnings",
+        "Disk space monitoring",
+        "API rate limit notifications"
+      ],
+      "estimate": "4 hours",
+      "dependencies": [
+        "agent-performance-metrics"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Implement comprehensive system alerting"
+    },
+    "task-lifecycle-monitoring": {
+      "id": "task-lifecycle-monitoring",
+      "agent": "cenedra",
+      "description": "Task Lifecycle Monitoring - Track task progression from TODO → IN FLIGHT → DONE with timing and bottleneck analysis",
+      "status": "todo",
+      "priority": "MEDIUM",
+      "category": "workflow-monitoring",
+      "tags": [
+        "workflow",
+        "analytics",
+        "bottlenecks"
+      ],
+      "acceptance_criteria": [
+        "Task state transition tracking",
+        "Average time in each state",
+        "Bottleneck identification",
+        "Agent workload distribution",
+        "Task completion velocity metrics"
+      ],
+      "estimate": "4 hours",
+      "dependencies": [
+        "task-registry-api",
+        "agent-performance-metrics"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Analyze and optimize task workflow performance"
+    },
+    "git-worktree-health": {
+      "id": "git-worktree-health",
+      "agent": "durnik",
+      "description": "Git Worktree Health Monitoring - Monitor git worktree status, disk usage, and cleanup stale branches",
+      "status": "todo",
+      "priority": "MEDIUM",
+      "category": "infrastructure-monitoring",
+      "tags": [
+        "git",
+        "infrastructure",
+        "cleanup"
+      ],
+      "acceptance_criteria": [
+        "Worktree disk usage tracking",
+        "Stale branch identification",
+        "Automated cleanup scheduling",
+        "Branch merge status monitoring",
+        "Git repository health checks"
+      ],
+      "estimate": "3 hours",
+      "dependencies": [
+        "system-health-alerts"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Maintain git infrastructure health and cleanliness"
+    },
+    "business-impact-metrics": {
+      "id": "business-impact-metrics",
+      "agent": "taiba",
+      "description": "Business Impact Measurement Framework - Measure business value delivered by agent tasks and ROI calculations",
+      "status": "todo",
+      "priority": "MEDIUM",
+      "category": "business-metrics",
+      "tags": [
+        "business",
+        "roi",
+        "value-tracking"
+      ],
+      "acceptance_criteria": [
+        "Task business value scoring",
+        "ROI calculation framework",
+        "Time saved measurements",
+        "Quality metrics tracking",
+        "Business outcome correlation"
+      ],
+      "estimate": "6 hours",
+      "dependencies": [
+        "task-lifecycle-monitoring",
+        "cost-tracking-accuracy"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Quantify business value and ROI of agent work"
+    },
+    "monitoring-dashboard": {
+      "id": "monitoring-dashboard",
+      "agent": "cenedra",
+      "description": "Comprehensive Monitoring Dashboard - Single-pane-of-glass monitoring dashboard aggregating all health, performance, and business metrics",
+      "status": "todo",
+      "priority": "HIGH",
+      "category": "dashboard",
+      "tags": [
+        "ui",
+        "dashboard",
+        "visualization"
+      ],
+      "acceptance_criteria": [
+        "Real-time metrics visualization",
+        "Historical trend analysis",
+        "Customizable widget layout",
+        "Mobile-responsive design",
+        "Export capabilities for reports"
+      ],
+      "estimate": "5 hours",
+      "dependencies": [
+        "health-check-component",
+        "agent-performance-metrics",
+        "business-impact-metrics"
+      ],
+      "createdAt": "2026-02-26T03:22:00Z",
+      "objective": "Create comprehensive monitoring visualization platform"
+    },
+    "cost-optimization-hardening": {
+      "id": "cost-optimization-hardening",
+      "agent": "durnik",
+      "description": "Hard-lock codex defaults, verify no implicit API model use, add daily cost drift checks",
+      "status": "running",
+      "priority": "CRITICAL",
+      "category": "cost-monitoring",
+      "tags": [
+        "cost",
+        "codex-cli",
+        "guardrails"
+      ],
+      "estimate": "2 hours",
+      "createdAt": "2026-02-27T09:24:40.412Z",
+      "objective": "Default-free/explicit-paid policy with automated drift detection",
+      "acceptance_criteria": [
+        "Main + subagents default to codex-cli",
+        "Cost drift check reports non-codex usage",
+        "Board reflects task lifecycle transitions"
+      ],
+      "startedAt": "2026-02-27T09:24:49.858Z"
+    },
+    "health-monitoring-rollout": {
+      "id": "health-monitoring-rollout",
+      "agent": "taiba",
+      "description": "Implement remaining health monitoring tasks and surface bottlenecks/alerts",
+      "status": "running",
+      "priority": "HIGH",
+      "category": "health-monitoring",
+      "tags": [
+        "health",
+        "alerts",
+        "metrics"
+      ],
+      "estimate": "6 hours",
+      "createdAt": "2026-02-27T09:24:40.412Z",
+      "objective": "Move health stack from planned to operational",
+      "dependencies": [
+        "health-check-component",
+        "agent-performance-metrics",
+        "system-health-alerts"
+      ],
+      "acceptance_criteria": [
+        "Agent health component operational",
+        "Alerts emitted for failed/hung work",
+        "Board movement telemetry captured"
+      ],
+      "startedAt": "2026-02-27T09:24:49.943Z"
+    },
+    "discord-channel-publishing-fix": {
+      "id": "discord-channel-publishing-fix",
+      "agent": "polgara",
+      "description": "Route agent updates to configured Discord channels by stream and confirm delivery",
+      "status": "running",
+      "priority": "HIGH",
+      "category": "communications",
+      "tags": [
+        "discord",
+        "routing",
+        "notifications"
+      ],
+      "estimate": "4 hours",
+      "createdAt": "2026-02-27T09:24:40.412Z",
+      "objective": "Reliable publishing to each configured Discord channel",
+      "acceptance_criteria": [
+        "Routing map defined for channel categories",
+        "Task start/progress/completion events publish",
+        "Failed publishes logged and retried"
+      ],
+      "startedAt": "2026-02-27T09:24:50.045Z"
+    }
+  }
+}

@@ -1,29 +1,34 @@
 # Active Task
 
-**Started:** [Date]  
-**Goal:** [One-line description of what we're trying to achieve]  
-**Deadline:** [If any, or "Ongoing"]
+**Started:** 2026-02-27 20:21 GMT+11  
+**Goal:** Complete remaining engineering tasks for cost optimization, health monitoring, and Discord publishing while showing visible `todo -> running -> completed` movement on the Mission Control board.  
+**Deadline:** Ongoing
 
 ## Current State
-[What I'm working on right now. Update this frequently during the task.]
+Board control scripts and execution plan are in place. Bootstrap and status transitions were validated against a local snapshot of the board data file.
 
 ## Next Steps
-- [ ] Step 1
-- [ ] Step 2
-- [ ] Step 3
+- [ ] Run `scripts/bootstrap-remaining-engineering.sh` against live board file
+- [ ] Move active tasks to `running` using `scripts/board-taskctl.sh`
+- [ ] Execute workstream updates and move tasks to `completed` as each stream finishes
 
 ## Blockers
-- [None / list anything preventing progress]
+- Sandbox cannot write to live board file: `/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json`
 
 ## Decisions Made
-- [Record key decisions so we don't re-debate them]
+- Keep API fallbacks configured, but default operation on codex-cli
+- Implement repeatable board-state control scripts rather than manual JSON edits
 
 ## Resources & Links
-- [URLs, file paths, references needed]
+- Plan: `shared/plans/remaining-engineering-2026-02-27.md`
+- Board state tool: `scripts/board-taskctl.sh`
+- Task bootstrap: `scripts/bootstrap-remaining-engineering.sh`
+- Discord audit: `scripts/discord-routing-audit.sh`
+- Live board data source: `/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json`
 
 ## Checkpoints
 - [x] Initial setup complete
-- [ ] Core work in progress
+- [x] Core work in progress
 - [ ] Review and finalize
 - [ ] Complete and archive
 

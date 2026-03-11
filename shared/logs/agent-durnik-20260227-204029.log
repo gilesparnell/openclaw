@@ -1,0 +1,22 @@
+I’m executing `cost-optimization-hardening` now. First I’ll load the required session context files (`SOUL.md`, `USER.md`, recent memory, and `MEMORY.md`), then I’ll perform the five requested task steps and write the report/artifacts.
+I’ve loaded the required context files. Next I’m inspecting the target task board file and codex-cli config locations so I can apply the running/completed status updates and generate the cost-drift artifact/report.
+I found the board and shared status/output directories. I’m now locating the codex-cli default config for main/subagents/cron-worker and then I’ll attempt the required file writes in order.
+I confirmed the active task ID is not yet on the board and that global defaults are already `codex-cli`. I’m now checking cron-worker/main/subagent-specific config files to verify fallback behavior and then I’ll apply the requested task-state + artifact/report writes.
+I’ve verified the relevant configs: global defaults are codex, but I also found legacy non-codex model entries in per-job/agent files (API fallback still present). I’m now generating the cost-drift check content and attempting each required write path in sequence; if the sandbox blocks writes, I’ll return exact failure points and the prepared payloads.
+Write attempts are being blocked by this read-only sandbox, including shell heredocs. I’m continuing in read-only mode: extracting exact task details, producing the drift-check/report payloads inline, and validating what would be updated.
+I identified a key drift risk while validating defaults: several concrete agent configs still pin non-codex models even though global defaults are codex. I’m doing one final pass over `agent.yaml` and model/provider files so the hardening report is accurate.
+Execution attempted for `cost-optimization-hardening`, but this session is hard-blocked to read-only (`operation not permitted` on all write targets), so I could only verify and prepare outputs.
+
+**Status by step**
+1. Board task `running` in [`/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json`](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json): **blocked (no write access)**.  
+   - Note: task exists as `running` in snapshot [`/Users/gilesparnell/.openclaw/workspace/shared/status/active-tasks.snapshot.json`](/Users/gilesparnell/.openclaw/workspace/shared/status/active-tasks.snapshot.json).
+2. Codex defaults verification: **completed** from [`/Users/gilesparnell/.openclaw/openclaw.json`](/Users/gilesparnell/.openclaw/openclaw.json) and cron/jobs configs.  
+   - Defaults are codex for main/subagents.
+   - API fallback is available (codex + moonshot/openrouter providers present).
+   - Drift detected: all agent `agent.yaml` model pins are non-codex; cron-worker has 7 non-codex job payload models in [`/Users/gilesparnell/.openclaw/cron/jobs.json`](/Users/gilesparnell/.openclaw/cron/jobs.json).
+3. Cost drift artifact under [`/Users/gilesparnell/.openclaw/workspace/shared/status/`](/Users/gilesparnell/.openclaw/workspace/shared/status): **blocked (no write access)**.  
+   - Prepared payload (generated `2026-02-27T09:42:20Z`): `drift_detected=true`, reason `cron-worker jobs still pinned to non-codex models`.
+4. Output report to [`/Users/gilesparnell/.openclaw/workspace/shared/outputs/task-cost-optimization-hardening.md`](/Users/gilesparnell/.openclaw/workspace/shared/outputs/task-cost-optimization-hardening.md): **blocked (no write access)**.
+5. Board task `completed` with timestamps in [`/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json`](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json): **blocked (no write access)**.
+
+Files changed: **none** (read-only sandbox prevented writes).

@@ -1,0 +1,42 @@
+I’ll execute this end-to-end now: first I’m loading the required session context files (`SOUL.md`, `USER.md`, today/yesterday memory, and `MEMORY.md`), then I’ll update task states, implement artifacts, generate the rollout report, and finalize task status transitions.
+I found `BOOTSTRAP.md`, so I’m reading and following it now before continuing. After that I’ll proceed with the rollout file updates.
+I have the required context loaded. Next I’m inspecting `active-tasks.json` and the shared health-monitoring artifacts so I can apply the status transitions and implement the remaining files.
+I confirmed the task registry content; I’m now locating the `health-monitoring-rollout` task definition and existing health/metrics/alerts artifacts in `shared/` so I can update the correct files consistently.
+I found a rollout task spec and a snapshot that already includes `health-monitoring-rollout`. I’m reading those now to identify exact dependency ordering and expected artifact filenames before editing.
+I have the dependency chain and board-control conventions. I’m now attempting the required status transitions and artifact writes; if filesystem policy blocks writes, I’ll capture exact failures with timestamps and provide the concrete patch content.
+I’m checking for the board control script location now; once I have that, I’ll execute the requested board movement sequence.
+Write access is blocked in this environment, so I can’t persist changes directly; I’m collecting exact update payloads and command-ready content so you can apply the rollout in one pass without ambiguity.
+Blocked by filesystem policy: this session is `read-only`, so I could not persist the required board/artifact/report changes.
+
+**Timestamped execution log**
+1. `2026-02-27T09:44:35Z`: write test to shared outputs failed (`Operation not permitted`).
+2. `2026-02-27T09:46:56Z`: write test to active task registry failed (`operation not permitted`).
+3. `2026-02-27T09:46:28Z` (`20:46:28+1100` local): verified current health task state in active registry:
+   - `health-monitoring-rollout`: `MISSING`
+   - `health-check-component`: `todo`
+   - `agent-performance-metrics`: `todo`
+   - `system-health-alerts`: `todo`
+   - `monitoring-dashboard`: `todo`
+
+**Files inspected**
+- [active-tasks.json](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json)
+- [task-health-monitoring-rollout.md](/Users/gilesparnell/.openclaw/workspace/shared/tasks/task-health-monitoring-rollout.md)
+- [active-tasks.snapshot.json](/Users/gilesparnell/.openclaw/workspace/shared/status/active-tasks.snapshot.json)
+- [health_check.sh](/Users/gilesparnell/.openclaw/workspace/shared/health_check.sh)
+- [HEALTH_STATUS.md](/Users/gilesparnell/.openclaw/workspace/shared/HEALTH_STATUS.md)
+- [board-taskctl.sh](/Users/gilesparnell/.openclaw/workspace/scripts/board-taskctl.sh)
+
+**What I was ready to apply (but could not write)**
+1. Update [active-tasks.json](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json):
+   - upsert `health-monitoring-rollout` if missing
+   - move `health-monitoring-rollout` + `health-check-component` to `running`
+   - append timestamped board-move lines to [board-moves.log](/Users/gilesparnell/.openclaw/workspace/shared/logs/board-moves.log)
+2. Update health monitoring artifacts in `/shared`:
+   - refresh [health_check.sh](/Users/gilesparnell/.openclaw/workspace/shared/health_check.sh)
+   - add metrics status artifact (under `/shared/status/`)
+   - add alert definitions artifact (under `/shared/status/`)
+3. Create rollout report:
+   - [task-health-monitoring-rollout.md](/Users/gilesparnell/.openclaw/workspace/shared/outputs/task-health-monitoring-rollout.md)
+4. Move completed health tasks to `completed` in [active-tasks.json](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json).
+
+If you rerun me with write-enabled sandbox, I can execute all four steps directly and return the exact final board/status diff.

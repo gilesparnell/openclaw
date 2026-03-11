@@ -1,0 +1,16 @@
+Could not execute write steps due sandbox restrictions: this session can only write under `/Users/gilesparnell/.openclaw/workspace-durnik`, `/tmp`, and `/var/folders/...`, while all required targets are outside those roots.
+
+**What I verified (read-only)**
+- Board task is **missing** from [`active-tasks.json`](/Users/gilesparnell/Documents/VSStudio/awe2m8-local/.clawbot/active-tasks.json) (not `running`, no timestamps).
+- Snapshot shows task as `running` with `startedAt` in [`active-tasks.snapshot.json`](/Users/gilesparnell/.openclaw/workspace/shared/status/active-tasks.snapshot.json).
+- Defaults are codex in [`openclaw.json`](/Users/gilesparnell/.openclaw/openclaw.json):
+  - `agents.defaults.model.primary = codex-cli/gpt-5.3-codex`
+  - `agents.defaults.subagents.model = codex-cli/gpt-5.3-codex`
+  - `main.model.primary = codex-cli/gpt-5.3-codex`
+  - `main.subagents.model = codex-cli/gpt-5.3-codex`
+- API fallback is still available (moonshot/openrouter providers present), and drift exists:
+  - 7 `cron-worker` jobs in [`jobs.json`](/Users/gilesparnell/.openclaw/cron/jobs.json) are pinned to non-codex models.
+  - Agent local pins are non-codex in multiple [`agent.yaml`](/Users/gilesparnell/.openclaw/agents/durnik/agent/agent.yaml)-style files (`barak`, `beldin`, `cenedra`, `durnik`, `errand`, `mandorallen`, `polgara`, `relg`, `silk`, `taiba`).
+
+**Files changed**
+- None (all target writes were blocked with `operation not permitted`).
