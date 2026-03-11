@@ -20,6 +20,21 @@ Operational rules for this workspace.
 - `ops/` = operational state, journals, runbooks, status
 - `scratch/` = disposable working files; never authoritative
 - `archive/` = retired top-level artifacts kept for reference
+- `shared/` = cross-agent exchange only; follow `shared/CONTRACT.md`
+
+## Markdown Placement Rule
+- New `.md` files must not be dropped at root by default.
+- Before creating a markdown file, choose the owning domain first:
+  - identity/control -> root canonical files only
+  - dated notes -> `memory/daily/`
+  - durable lessons -> `MEMORY.md`
+  - decisions -> `decisions/`
+  - project docs -> `projects/<name>/`
+  - operational doctrine -> `ops/runbooks/`
+  - operational state/journals -> `ops/active/`, `ops/status/`, `ops/journals/`, `ops/heartbeat/`
+  - temporary work -> `scratch/`
+  - cross-agent handoff -> `shared/` subdirectories only
+- If no owner is clear, use `scratch/` first and promote it later.
 
 ## Safety
 - Do not exfiltrate private data.

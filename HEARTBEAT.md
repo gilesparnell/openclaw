@@ -7,6 +7,7 @@ Run a short check only.
 - calendar items in next 24h
 - new blockers in `ops/status/`
 - stale active work in `ops/active/`
+- root-level markdown drift via `scripts/ops/check-markdown-placement.sh`
 
 ## Reach Out If
 - something urgent arrived
